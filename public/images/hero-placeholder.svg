@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2400" height="1600" viewBox="0 0 2400 1600" role="img" aria-label="Studio atmosphere placeholder">
+  <defs>
+    <linearGradient id="h" x1="0" y1="0" x2="0.8" y2="1">
+      <stop offset="0%" stop-color="#2a2622"/>
+      <stop offset="55%" stop-color="#171411"/>
+      <stop offset="100%" stop-color="#0d0b0a"/>
+    </linearGradient>
+  </defs>
+  <rect width="2400" height="1600" fill="url(#h)"/>
+  <circle cx="1680" cy="620" r="420" fill="rgba(255,255,255,0.03)"/>
+  <text x="180" y="1380" fill="rgba(255,255,255,0.28)" font-family="Georgia, serif" font-size="56" letter-spacing="10">STUDIO</text>
+</svg>

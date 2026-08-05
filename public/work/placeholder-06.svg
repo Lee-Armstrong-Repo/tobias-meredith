@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="1500" viewBox="0 0 1200 1500" role="img" aria-label="Work placeholder 06">
+  <defs>
+    <linearGradient id="g06" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="hsl(110, 8%, 18%)"/>
+      <stop offset="100%" stop-color="hsl(110, 6%, 28%)"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="1500" fill="url(#g06)"/>
+  <text x="600" y="720" text-anchor="middle" fill="rgba(255,255,255,0.55)" font-family="Georgia, serif" font-size="42" letter-spacing="8">TOBIAS MEREDITH</text>
+  <text x="600" y="790" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Helvetica, Arial, sans-serif" font-size="22" letter-spacing="4">WORK 06</text>
+</svg>
