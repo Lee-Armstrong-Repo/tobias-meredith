@@ -1,40 +1,23 @@
 import type { Metadata } from "next";
-import { Fraunces, Outfit } from "next/font/google";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
+import { JsonLd } from "../components/JsonLd";
 import { site } from "../../content/site";
 import "./globals.css";
-
-const display = Fraunces({
-  variable: "--font-display",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const body = Outfit({
-  variable: "--font-body",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — Tattoo Artist`,
-    template: `%s · ${site.name}`,
+    default: `${site.name} | Melbourne Tattoo Artist`,
+    template: `%s | ${site.name} Melbourne`,
   },
   description: site.description,
   applicationName: site.name,
   authors: [{ name: site.name }],
   creator: site.name,
-  keywords: [
-    "Tobias Meredith",
-    "tattoo artist",
-    "custom tattoos",
-    "fine line tattoo",
-    "blackwork tattoo",
-    "illustrative tattoo",
-  ],
+  publisher: site.name,
+  keywords: [...site.keywords],
+  category: "Tattoo Artist",
   alternates: {
     canonical: "/",
   },
@@ -43,24 +26,36 @@ export const metadata: Metadata = {
     locale: site.locale,
     url: site.url,
     siteName: site.name,
-    title: `${site.name} — Tattoo Artist`,
+    title: `${site.name} | Melbourne Tattoo Artist`,
     description: site.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — Tattoo Artist`,
+    title: `${site.name} | Melbourne Tattoo Artist`,
     description: site.description,
   },
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  other: {
+    "geo.region": "AU-VIC",
+    "geo.placename": site.city,
   },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-AU" className={`${display.variable} ${body.variable} h-full`}>
-      <body className="site-shell antialiased">
+    <html lang="en-AU" className="h-full">
+      <body className="site-shell">
+        <JsonLd />
         <Header />
         <main className="site-main">{children}</main>
         <Footer />

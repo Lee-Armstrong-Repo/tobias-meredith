@@ -91,10 +91,17 @@ export async function generateMetadata(props: {
 
   return {
     title: post.title,
-    description: post.excerpt,
+    description: `${post.excerpt} From Melbourne tattoo artist ${site.name}.`,
+    keywords: [
+      post.title,
+      site.name,
+      "Melbourne tattoo artist",
+      "tattoo advice Melbourne",
+      post.category,
+    ],
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
-      title: `${post.title} | ${site.name}`,
+      title: `${post.title} | ${site.name} Melbourne`,
       description: post.excerpt,
       type: "article",
     },

@@ -7,8 +7,20 @@ import { blogPostsQuery } from "@/sanity/lib/queries";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: `Tattoo advice, preparation tips, and design insights from ${site.name}.`,
+  description: `Tattoo advice, preparation tips, and design insights from Melbourne tattoo artist ${site.name}. Guides for clients booking custom tattoos in Melbourne.`,
+  keywords: [
+    "Melbourne tattoo blog",
+    "tattoo advice Melbourne",
+    "how to prepare for a tattoo",
+    "tattoo placement guide",
+    "fine line vs blackwork",
+    "Tobias Meredith blog",
+  ],
   alternates: { canonical: "/blog" },
+  openGraph: {
+    title: `Blog | ${site.name} Melbourne Tattoo Artist`,
+    description: `Tattoo advice and design insights from ${site.name} in Melbourne.`,
+  },
 };
 
 export const revalidate = 60;
@@ -67,8 +79,8 @@ export default async function BlogPage() {
       <div className="page-intro">
         <h1>Blog</h1>
         <p>
-          Helpful articles for clients, plus notes on style, placement, and how
-          to prepare for an appointment.
+          Tattoo advice from {site.name} in Melbourne — preparation tips,
+          placement notes, and style guidance for clients booking custom work.
         </p>
       </div>
 

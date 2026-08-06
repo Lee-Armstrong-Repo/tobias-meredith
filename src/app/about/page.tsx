@@ -4,8 +4,19 @@ import { site } from "../../../content/site";
 
 export const metadata: Metadata = {
   title: "About",
-  description: `Learn about ${site.name}, a tattoo artist focused on custom fine line, blackwork, and illustrative work.`,
+  description: `About ${site.name}, a Melbourne tattoo artist creating custom fine line, blackwork, and illustrative tattoos. Learn about his process and book in Melbourne.`,
+  keywords: [
+    "Tobias Meredith Melbourne",
+    "about Tobias Meredith",
+    "Melbourne tattoo artist bio",
+    "fine line tattoo artist Melbourne",
+    "blackwork tattoo artist Melbourne",
+  ],
   alternates: { canonical: "/about" },
+  openGraph: {
+    title: `About ${site.name} | Melbourne Tattoo Artist`,
+    description: `Meet ${site.name}, a Melbourne tattoo artist focused on custom fine line, blackwork, and illustrative work.`,
+  },
 };
 
 export default function AboutPage() {
@@ -14,8 +25,9 @@ export default function AboutPage() {
       <div className="page-intro">
         <h1>About</h1>
         <p>
-          Placeholder bio for {site.name}. Replace this copy with his story,
-          influences, and studio details when ready.
+          {site.name} is a tattoo artist based in Melbourne, Australia, creating
+          custom fine line, blackwork, and illustrative tattoos for clients
+          across the city.
         </p>
       </div>
 
@@ -23,7 +35,7 @@ export default function AboutPage() {
         <div className="about-grid__media">
           <Image
             src="/images/about-placeholder.svg"
-            alt={`Portrait placeholder for ${site.name}`}
+            alt={`${site.name}, Melbourne tattoo artist portrait`}
             fill
             sizes="(max-width: 859px) 100vw, 45vw"
             unoptimized
@@ -36,8 +48,9 @@ export default function AboutPage() {
             composition, scale, and placement before any ink goes down.
           </p>
           <p>
-            His work leans toward fine line, blackwork, and illustrative tattoos,
-            with an emphasis on pieces that sit cleanly on the body and age well.
+            His Melbourne tattoo work leans toward fine line, blackwork, and
+            illustrative tattoos, with an emphasis on pieces that sit cleanly on
+            the body and age well.
           </p>
           <p>
             Based in {site.location}. For availability and bookings, use the

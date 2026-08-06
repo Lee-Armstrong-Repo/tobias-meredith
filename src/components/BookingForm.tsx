@@ -50,7 +50,7 @@ export function BookingForm() {
   }
 
   return (
-    <form className="booking-form" onSubmit={onSubmit} noValidate={false}>
+    <form className="booking-form" onSubmit={onSubmit}>
       <label className="field">
         <span>Name</span>
         <input name="name" type="text" required autoComplete="name" />
@@ -77,7 +77,7 @@ export function BookingForm() {
           <option>Not sure yet</option>
         </select>
       </label>
-      <label className="field">
+      <label className="field field--full">
         <span>Placement</span>
         <input
           name="placement"
@@ -89,14 +89,16 @@ export function BookingForm() {
         <span>Your idea</span>
         <textarea
           name="idea"
-          rows={6}
+          rows={5}
           required
           placeholder="Describe the concept, size, and any reference notes."
         />
       </label>
-      <button type="submit" className="button">
-        Send enquiry
-      </button>
+      <div className="booking-form__actions">
+        <button type="submit" className="button">
+          Send enquiry
+        </button>
+      </div>
     </form>
   );
 }

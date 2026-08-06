@@ -6,6 +6,9 @@ export function Footer() {
     <footer className="site-footer">
       <div className="site-footer__inner">
         <p className="site-footer__brand">{site.name}</p>
+        <p className="site-footer__location">
+          Melbourne tattoo artist · {site.location}
+        </p>
         <div className="site-footer__links">
           <a href={site.instagram} rel="noopener noreferrer" target="_blank">
             Instagram
@@ -14,7 +17,8 @@ export function Footer() {
           <Link href="/booking">Book a consultation</Link>
         </div>
         <p className="site-footer__note">
-          © {new Date().getFullYear()} {site.name}. All rights reserved.
+          © {new Date().getFullYear()} {site.name}. Custom tattoos in Melbourne,
+          Australia.
         </p>
       </div>
     </footer>

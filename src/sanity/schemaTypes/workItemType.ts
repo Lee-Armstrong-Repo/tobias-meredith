@@ -12,6 +12,13 @@ export const workItemType = defineType({
       validation: (rule) => rule.required(),
     }),
     defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "title", maxLength: 96 },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "category",
       title: "Category",
       type: "string",
@@ -23,6 +30,13 @@ export const workItemType = defineType({
       description: "Describe the tattoo for accessibility and SEO.",
       type: "string",
       validation: (rule) => rule.required(),
+    }),
+    defineField({
+      name: "description",
+      title: "Description",
+      type: "text",
+      rows: 3,
+      validation: (rule) => rule.required().max(280),
     }),
     defineField({
       name: "publishedAt",
