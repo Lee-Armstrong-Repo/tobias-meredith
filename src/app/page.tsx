@@ -33,19 +33,44 @@ export default function HomePage() {
         </div>
 
         <div className="hero__copy">
-          <p className="hero-kicker hero-motion hero-motion--1">{site.tagline}</p>
-          <h1 className="brand-mark hero-motion hero-motion--2">{site.name}</h1>
-          <p className="lede hero-motion hero-motion--3">
-            Custom fine line, blackwork, and illustrative tattoos in Melbourne —
-            from first idea to finished piece.
+          <p className="hero-kicker hero-motion hero-motion--1">
+            Private tattoo practice / Melbourne
           </p>
-          <div className="cta-row hero-motion hero-motion--4">
-            <Link href="/booking" className="button">
-              Book a consultation
-            </Link>
-            <Link href="/work" className="button-secondary button-secondary--on-media">
-              View work
-            </Link>
+          <div className="hero__layout">
+            <div className="hero__primary">
+              <h1 className="brand-mark hero-motion hero-motion--2">
+                Permanent work
+                <br />
+                for people
+                <br />
+                who want
+                <br />
+                it to last.
+              </h1>
+            </div>
+
+            <div className="hero__secondary hero-motion hero-motion--3">
+              <p className="hero__status">
+                <span className="hero__status-dot" aria-hidden="true" />
+                Bookings currently open
+              </p>
+              <p className="lede">
+                Tobias Meredith creates fine line, blackwork, and illustrative
+                tattoos in Melbourne with a slower, considered process from
+                concept through placement.
+              </p>
+              <div className="cta-row hero-motion hero-motion--4">
+                <Link href="/booking" className="button">
+                  Request a booking
+                </Link>
+                <Link
+                  href="/work"
+                  className="button-secondary button-secondary--on-media"
+                >
+                  View work
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
