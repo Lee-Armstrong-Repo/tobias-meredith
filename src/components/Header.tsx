@@ -15,7 +15,7 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="site-header">
+    <header className={open ? "site-header is-menu-open" : "site-header"}>
       <div className="site-header__inner">
         <Link
           href="/"
