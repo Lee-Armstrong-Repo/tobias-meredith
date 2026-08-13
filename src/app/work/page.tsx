@@ -1,32 +1,34 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
+import { JsonLd } from "@/components/JsonLd";
 import { site } from "../../../content/site";
 import { getPortfolioItems } from "@/lib/work";
+import {
+  absoluteUrl,
+  breadcrumbNode,
+  personNode,
+  webPageNode,
+  websiteNode,
+} from "@/lib/schema";
+
+const pageTitle = `Work by ${site.name}`;
+const pageDescription = `Selected custom tattoo work by ${site.name}, including fine line, blackwork, illustrative, and ornamental pieces.`;
 
 export const metadata: Metadata = {
   title: "Work",
-  description: `Selected tattoo work by ${site.name}, Melbourne tattoo artist. Browse custom fine line, blackwork, illustrative, and ornamental tattoos.`,
-  keywords: [
-    "Tobias Meredith tattoos",
-    "Melbourne tattoo portfolio",
-    "fine line tattoos Melbourne",
-    "blackwork tattoos Melbourne",
-    "custom tattoo gallery Melbourne",
-  ],
+  description: pageDescription,
   alternates: { canonical: "/work" },
   openGraph: {
-    title: `Work | ${site.name} Melbourne Tattoo Portfolio`,
-    description: `View selected tattoo work by ${site.name} in Melbourne — fine line, blackwork, and illustrative pieces.`,
+    title: pageTitle,
+    description: pageDescription,
     url: "/work",
     type: "website",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `Work | ${site.name} Melbourne Tattoo Portfolio`,
-    description: `View selected tattoo work by ${site.name} in Melbourne — fine line, blackwork, and illustrative pieces.`,
-    images: ["/opengraph-image"],
+    title: pageTitle,
+    description: pageDescription,
   },
 };
 
@@ -36,37 +38,66 @@ export default async function WorkPage() {
   const items = await getPortfolioItems();
 
   return (
-    <div className="page">
-      <div className="page-intro">
-        <h1>Work</h1>
-        <p>
-          Selected tattoo work by {site.name} in Melbourne — custom fine line,
-          blackwork, illustrative, and ornamental pieces. Click any piece for a
-          larger view.
-        </p>
-      </div>
+    <>
+      <JsonLd
+        data={[
+          websiteNode(),
+          personNode(),
+          webPageNode({
+            path: "/work",
+            name: pageTitle,
+            description: pageDescription,
+            type: "CollectionPage",
+          }),
+          breadcrumbNode([
+            { name: "Home", path: "/" },
+            { name: "Work", path: "/work" },
+          ]),
+          {
+            "@type": "ItemList",
+            name: pageTitle,
+            numberOfItems: items.length,
+            itemListElement: items.map((item, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              url: absoluteUrl(`/work/${item.slug}`),
+              name: item.title,
+            })),
+          },
+        ]}
+      />
 
-      <div className="work-grid">
-        {items.map((item) => (
-          <article key={item.id} className="work-card">
-            <Link href={`/work/${item.slug}`} className="work-card__link">
-              <div className="work-card__media">
-                <Image
-                  src={item.src}
-                  alt={item.alt}
-                  fill
-                  sizes="(max-width: 639px) 100vw, (max-width: 1099px) 50vw, 33vw"
-                  unoptimized={item.isPlaceholder}
-                />
-              </div>
-              <div className="work-card__meta">
-                <strong>{item.title}</strong>
-                <span>{item.category}</span>
-              </div>
-            </Link>
-          </article>
-        ))}
+      <div className="page">
+        <header className="page-intro">
+          <h1>Work</h1>
+          <p>
+            Selected tattoo work by {site.name}. Click any piece for a larger
+            view.
+          </p>
+        </header>
+
+        <ul className="work-grid">
+          {items.map((item) => (
+            <li key={item.id} className="work-card">
+              <Link href={`/work/${item.slug}`}>
+                <div className="work-card__media">
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                    unoptimized={item.isPlaceholder}
+                  />
+                </div>
+                <div className="work-card__meta">
+                  <span>{item.category}</span>
+                  <strong>{item.title}</strong>
+                </div>
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </>
   );
 }

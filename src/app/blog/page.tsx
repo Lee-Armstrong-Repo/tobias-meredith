@@ -1,34 +1,35 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { JsonLd } from "@/components/JsonLd";
 import { blogPosts } from "../../../content/blog";
 import { site } from "../../../content/site";
 import { sanityClient } from "@/sanity/lib/client";
 import { blogPostsQuery } from "@/sanity/lib/queries";
+import {
+  absoluteUrl,
+  breadcrumbNode,
+  personNode,
+  webPageNode,
+  websiteNode,
+} from "@/lib/schema";
+
+const pageTitle = `Blog | ${site.name}`;
+const pageDescription = `Notes on tattoo preparation, placement, and style from ${site.name}.`;
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: `Tattoo advice, preparation tips, and design insights from Melbourne tattoo artist ${site.name}. Guides for clients booking custom tattoos in Melbourne.`,
-  keywords: [
-    "Melbourne tattoo blog",
-    "tattoo advice Melbourne",
-    "how to prepare for a tattoo",
-    "tattoo placement guide",
-    "fine line vs blackwork",
-    "Tobias Meredith blog",
-  ],
+  description: pageDescription,
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: `Blog | ${site.name} Melbourne Tattoo Artist`,
-    description: `Tattoo advice and design insights from ${site.name} in Melbourne.`,
+    title: pageTitle,
+    description: pageDescription,
     url: "/blog",
     type: "website",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `Blog | ${site.name} Melbourne Tattoo Artist`,
-    description: `Tattoo advice and design insights from ${site.name} in Melbourne.`,
-    images: ["/opengraph-image"],
+    title: pageTitle,
+    description: pageDescription,
   },
 };
 
@@ -84,33 +85,65 @@ export default async function BlogPage() {
   const posts = await getBlogPosts();
 
   return (
-    <div className="page">
-      <div className="page-intro">
-        <h1>Blog</h1>
-        <p>
-          Tattoo advice from {site.name} in Melbourne — preparation tips,
-          placement notes, and style guidance for clients booking custom work.
-        </p>
-      </div>
+    <>
+      <JsonLd
+        data={[
+          websiteNode(),
+          personNode(),
+          webPageNode({
+            path: "/blog",
+            name: pageTitle,
+            description: pageDescription,
+            type: "Blog",
+          }),
+          breadcrumbNode([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+          ]),
+          {
+            "@type": "ItemList",
+            name: pageTitle,
+            numberOfItems: posts.length,
+            itemListElement: posts.map((post, index) => ({
+              "@type": "ListItem",
+              position: index + 1,
+              url: absoluteUrl(`/blog/${post.slug}`),
+              name: post.title,
+            })),
+          },
+        ]}
+      />
 
-      <div className="blog-grid">
-        {posts.map((post) => (
-          <article key={post.slug} className="blog-card">
-            <p className="blog-card__eyebrow">
-              <span>{post.category}</span>
-              <span>{post.readTime}</span>
-            </p>
-            <h2 className="blog-card__title">
-              <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-            </h2>
-            <p className="blog-card__excerpt">{post.excerpt}</p>
-            <div className="blog-card__footer">
-              <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
-              <Link href={`/blog/${post.slug}`}>Read article</Link>
-            </div>
-          </article>
-        ))}
+      <div className="page">
+        <header className="page-intro">
+          <h1>Blog</h1>
+          <p>
+            Preparation tips, placement notes, and style guidance for clients
+            booking custom work.
+          </p>
+        </header>
+
+        <div className="blog-list">
+          {posts.map((post) => (
+            <article key={post.slug} className="blog-card">
+              <p className="blog-card__meta">
+                <span>{post.category}</span>
+                <span>{post.readTime}</span>
+              </p>
+              <h2>
+                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
+              </h2>
+              <p>{post.excerpt}</p>
+              <p className="blog-card__meta">
+                <time dateTime={post.publishedAt}>
+                  {formatDate(post.publishedAt)}
+                </time>
+                <Link href={`/blog/${post.slug}`}>Read article</Link>
+              </p>
+            </article>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

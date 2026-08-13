@@ -1,4 +1,5 @@
 import { workItems, type WorkItem } from "../../content/work";
+import { site } from "../../content/site";
 import { hasSanityEnv } from "@/sanity/env";
 import { sanityClient } from "@/sanity/lib/client";
 import {
@@ -46,7 +47,7 @@ function toPortfolioItem(
     description:
       item.description ||
       fallback?.description ||
-      `${item.title} tattoo by Tobias Meredith in Melbourne.`,
+      `${item.title} by ${site.name}.`,
     src: item.imageUrl || fallback?.src || "/work/placeholder-01.svg",
     isPlaceholder: !item.imageUrl,
   };

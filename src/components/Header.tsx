@@ -21,7 +21,7 @@ export function Header() {
           <Link
             href="/"
             className="site-logo"
-            aria-label={`${site.name} home — Melbourne tattoo artist`}
+            aria-label={`${site.name} home`}
             onClick={() => setOpen(false)}
           >
             <span aria-hidden="true">{site.name.split(" ")[0]}</span>
@@ -49,7 +49,7 @@ export function Header() {
         <nav
           id="primary-navigation"
           className={open ? "site-nav is-open" : "site-nav"}
-          aria-label="Primary Melbourne tattoo artist navigation"
+          aria-label="Primary"
         >
           <ul className="site-nav__list">
             {nav.map((item) => (

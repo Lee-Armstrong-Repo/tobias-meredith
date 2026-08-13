@@ -19,9 +19,7 @@ export function BookingForm() {
     const placement = String(data.get("placement") || "").trim();
     const idea = String(data.get("idea") || "").trim();
 
-    const subject = encodeURIComponent(
-      `Melbourne tattoo booking enquiry — ${name}`,
-    );
+    const subject = encodeURIComponent(`Tattoo consultation enquiry — ${name}`);
     const body = encodeURIComponent(
       [
         `Name: ${name}`,
@@ -43,9 +41,9 @@ export function BookingForm() {
     return (
       <div className="booking-success" role="status" aria-live="polite">
         <p>
-          Your email app should open with the Melbourne tattoo enquiry ready to
-          send. If it doesn&apos;t, email{" "}
-          <a href={`mailto:${site.email}`}>{site.email}</a> directly.
+          Your email app should open with the enquiry ready to send. If it
+          doesn&apos;t, email <a href={`mailto:${site.email}`}>{site.email}</a>{" "}
+          directly.
         </p>
       </div>
     );
@@ -55,13 +53,10 @@ export function BookingForm() {
     <form
       className="booking-form"
       onSubmit={onSubmit}
-      aria-labelledby="tattoo-booking-heading"
       name="tattoo-consultation"
     >
       <fieldset className="booking-form__fieldset">
-        <legend className="sr-only">
-          Tattoo consultation enquiry for {site.name} in Melbourne
-        </legend>
+        <legend className="sr-only">Consultation enquiry</legend>
 
         <label className="field">
           <span>Name *</span>
@@ -126,7 +121,7 @@ export function BookingForm() {
 
       <div className="booking-form__actions">
         <button type="submit" className="button-ghost button-ghost--dark">
-          Send consultation message
+          Send message
         </button>
         <p className="booking-form__required-note">
           Fields marked with * are required.

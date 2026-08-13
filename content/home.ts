@@ -28,23 +28,23 @@ export const homeClosing = {
 
 export const studioFeatures = [
   {
-    title: "Professional Standards",
+    title: "Professional standards",
     description:
       "Medical-grade hygiene, sterile setup, and careful aftercare guidance for every session.",
   },
   {
-    title: "Private, Focused Sessions",
+    title: "Private, focused sessions",
     description:
-      "A calm tattoo environment designed for concentration, comfort, and clear communication.",
+      "A calm environment designed for concentration, comfort, and clear communication.",
   },
   {
-    title: "Custom-First Process",
+    title: "Custom-first process",
     description:
-      "Consultation, design development, and placement planning before your Melbourne tattoo appointment.",
+      "Consultation, design development, and placement planning before your appointment.",
   },
   {
     title: "Based in Melbourne",
     description:
-      "Convenient Melbourne location for clients seeking custom fine line, blackwork, and illustrative tattoos.",
+      "A convenient Melbourne location for clients booking custom tattoo sessions.",
   },
 ] as const;

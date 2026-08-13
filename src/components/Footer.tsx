@@ -14,8 +14,8 @@ export function Footer() {
               {site.shortName}
             </p>
             <p className="site-footer__blurb">
-              Melbourne tattoo artist creating custom fine line, blackwork, and
-              illustrative work through a slower, considered process.
+              Custom fine line, blackwork, and illustrative tattoos through a
+              slower, considered process.
             </p>
             <address className="site-footer__address">
               <span>{site.location}</span>
@@ -26,12 +26,12 @@ export function Footer() {
 
           <nav aria-labelledby="footer-styles-heading">
             <p id="footer-styles-heading" className="site-footer__heading">
-              Tattoo styles
+              Styles
             </p>
             <ul className="site-footer__list">
               {footerStyles.map((item) => (
                 <li key={item.label}>
-                  <Link href={item.href}>{item.label} tattoos</Link>
+                  <Link href={item.href}>{item.label}</Link>
                 </li>
               ))}
             </ul>
@@ -78,7 +78,6 @@ export function Footer() {
                     href={site.instagram}
                     rel="noopener noreferrer"
                     target="_blank"
-                    aria-label={`${site.name} on Instagram`}
                   >
                     Instagram
                   </a>
@@ -90,8 +89,7 @@ export function Footer() {
 
         <p className="site-footer__note">
           <small>
-            © {new Date().getFullYear()} {site.name}. Custom tattoos in
-            Melbourne, Australia.
+            © {new Date().getFullYear()} {site.name}. {site.location}.
           </small>
         </p>
       </div>

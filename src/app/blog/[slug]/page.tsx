@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import type { PortableTextBlock } from "sanity";
+import { JsonLd } from "@/components/JsonLd";
 import { blogPosts } from "../../../../content/blog";
 import { site } from "../../../../content/site";
 import { hasSanityEnv } from "@/sanity/env";
@@ -10,6 +11,13 @@ import {
   blogPostBySlugQuery,
   blogPostSlugsQuery,
 } from "@/sanity/lib/queries";
+import {
+  absoluteUrl,
+  breadcrumbNode,
+  personNode,
+  webPageNode,
+  websiteNode,
+} from "@/lib/schema";
 
 type Params = Promise<{ slug: string }>;
 
@@ -91,27 +99,19 @@ export async function generateMetadata(props: {
 
   return {
     title: post.title,
-    description: `${post.excerpt} From Melbourne tattoo artist ${site.name}.`,
-    keywords: [
-      post.title,
-      site.name,
-      "Melbourne tattoo artist",
-      "tattoo advice Melbourne",
-      post.category,
-    ],
+    description: post.excerpt,
     alternates: { canonical: `/blog/${post.slug}` },
     openGraph: {
-      title: `${post.title} | ${site.name} Melbourne`,
+      title: post.title,
       description: post.excerpt,
       url: `/blog/${post.slug}`,
       type: "article",
-      images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+      publishedTime: post.publishedAt,
     },
     twitter: {
       card: "summary_large_image",
-      title: `${post.title} | ${site.name} Melbourne`,
+      title: post.title,
       description: post.excerpt,
-      images: ["/opengraph-image"],
     },
   };
 }
@@ -126,7 +126,36 @@ export default async function BlogPostPage(props: { params: Params }) {
 
   return (
     <article className="page article">
-      <div className="page-intro article__intro">
+      <JsonLd
+        data={[
+          websiteNode(),
+          personNode(),
+          webPageNode({
+            path: `/blog/${post.slug}`,
+            name: post.title,
+            description: post.excerpt,
+          }),
+          breadcrumbNode([
+            { name: "Home", path: "/" },
+            { name: "Blog", path: "/blog" },
+            { name: post.title, path: `/blog/${post.slug}` },
+          ]),
+          {
+            "@type": "BlogPosting",
+            "@id": absoluteUrl(`/blog/${post.slug}#post`),
+            headline: post.title,
+            description: post.excerpt,
+            datePublished: post.publishedAt,
+            author: { "@id": `${site.url}/#person` },
+            publisher: { "@id": `${site.url}/#person` },
+            mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+            articleSection: post.category,
+            inLanguage: "en-AU",
+          },
+        ]}
+      />
+
+      <header className="page-intro article__intro">
         <p className="blog-card__eyebrow">
           <span>{post.category}</span>
           <span>{post.readTime}</span>
@@ -136,7 +165,7 @@ export default async function BlogPostPage(props: { params: Params }) {
         <p className="article__date">
           <time dateTime={post.publishedAt}>{formatDate(post.publishedAt)}</time>
         </p>
-      </div>
+      </header>
 
       {"paragraphs" in post ? (
         <div className="article__body">

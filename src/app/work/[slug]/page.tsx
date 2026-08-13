@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { JsonLd } from "@/components/JsonLd";
 import { WorkLightbox } from "@/components/WorkLightbox";
 import { site } from "../../../../content/site";
 import {
@@ -9,6 +10,13 @@ import {
   getPortfolioItems,
   getPortfolioSlugs,
 } from "@/lib/work";
+import {
+  absoluteUrl,
+  breadcrumbNode,
+  personNode,
+  webPageNode,
+  websiteNode,
+} from "@/lib/schema";
 
 type Params = Promise<{ slug: string }>;
 
@@ -32,17 +40,9 @@ export async function generateMetadata(props: {
   return {
     title: item.title,
     description: item.description,
-    keywords: [
-      item.title,
-      item.category,
-      `${item.category} tattoo Melbourne`,
-      "Tobias Meredith",
-      "Melbourne tattoo artist",
-      "custom tattoo Melbourne",
-    ],
     alternates: { canonical: `/work/${item.slug}` },
     openGraph: {
-      title: `${item.title} | ${site.name} Melbourne`,
+      title: item.title,
       description: item.description,
       url: `/work/${item.slug}`,
       type: "article",
@@ -50,7 +50,7 @@ export async function generateMetadata(props: {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${item.title} | ${site.name} Melbourne`,
+      title: item.title,
       description: item.description,
       images: [item.src],
     },
@@ -69,29 +69,33 @@ export default async function WorkDetailPage(props: { params: Params }) {
     .filter((entry) => entry.slug !== item.slug)
     .slice(0, 3);
 
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: item.title,
-    description: item.description,
-    image: item.src.startsWith("http") ? item.src : `${site.url}${item.src}`,
-    creator: {
-      "@type": "Person",
-      name: site.name,
-    },
-    genre: item.category,
-    contentLocation: {
-      "@type": "City",
-      name: site.city,
-    },
-    url: `${site.url}/work/${item.slug}`,
-  };
-
   return (
     <div className="page">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      <JsonLd
+        data={[
+          websiteNode(),
+          personNode(),
+          webPageNode({
+            path: `/work/${item.slug}`,
+            name: item.title,
+            description: item.description,
+          }),
+          breadcrumbNode([
+            { name: "Home", path: "/" },
+            { name: "Work", path: "/work" },
+            { name: item.title, path: `/work/${item.slug}` },
+          ]),
+          {
+            "@type": "CreativeWork",
+            "@id": absoluteUrl(`/work/${item.slug}#work`),
+            name: item.title,
+            description: item.description,
+            image: absoluteUrl(item.src),
+            creator: { "@id": `${site.url}/#person` },
+            genre: item.category,
+            url: absoluteUrl(`/work/${item.slug}`),
+          },
+        ]}
       />
 
       <nav className="breadcrumb" aria-label="Breadcrumb">

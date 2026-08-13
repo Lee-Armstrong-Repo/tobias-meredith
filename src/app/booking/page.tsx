@@ -1,54 +1,75 @@
 import type { Metadata } from "next";
 import { BookingForm } from "../../components/BookingForm";
+import { JsonLd } from "../../components/JsonLd";
 import { site } from "../../../content/site";
+import {
+  breadcrumbNode,
+  localBusinessNode,
+  personNode,
+  webPageNode,
+  websiteNode,
+} from "../../lib/schema";
+
+const pageTitle = `Book a consultation with ${site.name}`;
+const pageDescription = `Request a tattoo consultation with ${site.name}. Share your idea, placement, and preferred style.`;
 
 export const metadata: Metadata = {
-  title: "Book a Tattoo Consultation",
-  description: `Book a tattoo consultation with ${site.name} in Melbourne. Share your idea, placement, and preferred style for custom fine line or blackwork tattoos.`,
-  keywords: [
-    "book tattoo Melbourne",
-    "tattoo consultation Melbourne",
-    "Tobias Meredith booking",
-    "custom tattoo Melbourne appointment",
-    "Melbourne tattoo artist booking",
-    "contact Tobias Meredith",
-  ],
+  title: "Book a consultation",
+  description: pageDescription,
   alternates: { canonical: "/booking" },
   openGraph: {
-    title: `Book a Consultation | ${site.name} Melbourne`,
-    description: site.bookingNote,
+    title: pageTitle,
+    description: pageDescription,
     url: "/booking",
     type: "website",
-    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
   },
   twitter: {
     card: "summary_large_image",
-    title: `Book a Consultation | ${site.name} Melbourne`,
-    description: site.bookingNote,
-    images: ["/opengraph-image"],
+    title: pageTitle,
+    description: pageDescription,
   },
 };
 
 export default function BookingPage() {
   return (
-    <div className="page page--booking">
-      <div className="page-intro">
-        <h1>Contact &amp; booking</h1>
-        <p>{site.bookingNote}</p>
-      </div>
+    <>
+      <JsonLd
+        data={[
+          websiteNode(),
+          personNode(),
+          localBusinessNode(),
+          webPageNode({
+            path: "/booking",
+            name: pageTitle,
+            description: pageDescription,
+            type: "ContactPage",
+          }),
+          breadcrumbNode([
+            { name: "Home", path: "/" },
+            { name: "Contact", path: "/booking" },
+          ]),
+        ]}
+      />
 
-      <div className="booking-panel">
-        <ul className="booking-notes">
-          <li>Include your idea, placement, and rough size</li>
-          <li>Mention any tattoo style preference if you have one</li>
-          <li>
-            Or email{" "}
-            <a href={`mailto:${site.email}`}>{site.email}</a> directly
-          </li>
-        </ul>
+      <div className="page page--booking">
+        <header className="page-intro">
+          <h1 id="booking-heading">Contact &amp; booking</h1>
+          <p>{site.bookingNote}</p>
+        </header>
 
-        <BookingForm />
+        <div className="booking-panel">
+          <ul className="booking-notes">
+            <li>Include your idea, placement, and rough size</li>
+            <li>Mention any tattoo style preference if you have one</li>
+            <li>
+              Or email{" "}
+              <a href={`mailto:${site.email}`}>{site.email}</a> directly
+            </li>
+          </ul>
+
+          <BookingForm />
+        </div>
       </div>
-    </div>
+    </>
   );
 }
