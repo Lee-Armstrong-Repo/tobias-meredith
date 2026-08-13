@@ -6,10 +6,8 @@ import { site } from "../../../content/site";
 import { getPortfolioItems } from "@/lib/work";
 import {
   absoluteUrl,
-  breadcrumbNode,
-  personNode,
-  webPageNode,
-  websiteNode,
+  buildPageGraph,
+  itemListNode,
 } from "@/lib/schema";
 
 const pageTitle = `Work by ${site.name}`;
@@ -40,31 +38,28 @@ export default async function WorkPage() {
   return (
     <>
       <JsonLd
-        data={[
-          websiteNode(),
-          personNode(),
-          webPageNode({
-            path: "/work",
+        data={buildPageGraph(
+          "/work",
+          {
             name: pageTitle,
             description: pageDescription,
             type: "CollectionPage",
-          }),
-          breadcrumbNode([
+          },
+          [
             { name: "Home", path: "/" },
             { name: "Work", path: "/work" },
-          ]),
-          {
-            "@type": "ItemList",
-            name: pageTitle,
-            numberOfItems: items.length,
-            itemListElement: items.map((item, index) => ({
-              "@type": "ListItem",
-              position: index + 1,
-              url: absoluteUrl(`/work/${item.slug}`),
-              name: item.title,
-            })),
-          },
-        ]}
+          ],
+          [
+            itemListNode(
+              `${absoluteUrl("/work")}#portfolio`,
+              pageTitle,
+              items.map((item) => ({
+                url: absoluteUrl(`/work/${item.slug}`),
+                name: item.title,
+              })),
+            ),
+          ],
+        )}
       />
 
       <div className="page">

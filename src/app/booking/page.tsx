@@ -2,13 +2,7 @@ import type { Metadata } from "next";
 import { BookingForm } from "../../components/BookingForm";
 import { JsonLd } from "../../components/JsonLd";
 import { site } from "../../../content/site";
-import {
-  breadcrumbNode,
-  localBusinessNode,
-  personNode,
-  webPageNode,
-  websiteNode,
-} from "../../lib/schema";
+import { buildPageGraph } from "../../lib/schema";
 
 const pageTitle = `Book a consultation with ${site.name}`;
 const pageDescription = `Request a tattoo consultation with ${site.name}. Share your idea, placement, and preferred style.`;
@@ -34,21 +28,20 @@ export default function BookingPage() {
   return (
     <>
       <JsonLd
-        data={[
-          websiteNode(),
-          personNode(),
-          localBusinessNode(),
-          webPageNode({
-            path: "/booking",
+        data={buildPageGraph(
+          "/booking",
+          {
             name: pageTitle,
             description: pageDescription,
             type: "ContactPage",
-          }),
-          breadcrumbNode([
+          },
+          [
             { name: "Home", path: "/" },
             { name: "Contact", path: "/booking" },
-          ]),
-        ]}
+          ],
+          [],
+          { includeService: true },
+        )}
       />
 
       <div className="page page--booking">

@@ -7,10 +7,8 @@ import { sanityClient } from "@/sanity/lib/client";
 import { blogPostsQuery } from "@/sanity/lib/queries";
 import {
   absoluteUrl,
-  breadcrumbNode,
-  personNode,
-  webPageNode,
-  websiteNode,
+  buildPageGraph,
+  itemListNode,
 } from "@/lib/schema";
 
 const pageTitle = `Blog | ${site.name}`;
@@ -87,31 +85,28 @@ export default async function BlogPage() {
   return (
     <>
       <JsonLd
-        data={[
-          websiteNode(),
-          personNode(),
-          webPageNode({
-            path: "/blog",
+        data={buildPageGraph(
+          "/blog",
+          {
             name: pageTitle,
             description: pageDescription,
             type: "Blog",
-          }),
-          breadcrumbNode([
+          },
+          [
             { name: "Home", path: "/" },
             { name: "Blog", path: "/blog" },
-          ]),
-          {
-            "@type": "ItemList",
-            name: pageTitle,
-            numberOfItems: posts.length,
-            itemListElement: posts.map((post, index) => ({
-              "@type": "ListItem",
-              position: index + 1,
-              url: absoluteUrl(`/blog/${post.slug}`),
-              name: post.title,
-            })),
-          },
-        ]}
+          ],
+          [
+            itemListNode(
+              `${absoluteUrl("/blog")}#posts`,
+              pageTitle,
+              posts.map((post) => ({
+                url: absoluteUrl(`/blog/${post.slug}`),
+                name: post.title,
+              })),
+            ),
+          ],
+        )}
       />
 
       <div className="page">

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { JsonLd } from "@/components/JsonLd";
 import { WorkLightbox } from "@/components/WorkLightbox";
-import { site } from "../../../../content/site";
 import {
   getPortfolioItem,
   getPortfolioItems,
@@ -12,10 +11,8 @@ import {
 } from "@/lib/work";
 import {
   absoluteUrl,
-  breadcrumbNode,
-  personNode,
-  webPageNode,
-  websiteNode,
+  buildPageGraph,
+  portfolioArtworkNode,
 } from "@/lib/schema";
 
 type Params = Promise<{ slug: string }>;
@@ -69,33 +66,26 @@ export default async function WorkDetailPage(props: { params: Params }) {
     .filter((entry) => entry.slug !== item.slug)
     .slice(0, 3);
 
+  const { id: artworkId, node: artworkNode } = portfolioArtworkNode(item);
+
   return (
     <div className="page">
       <JsonLd
-        data={[
-          websiteNode(),
-          personNode(),
-          webPageNode({
-            path: `/work/${item.slug}`,
+        data={buildPageGraph(
+          `/work/${item.slug}`,
+          {
             name: item.title,
             description: item.description,
-          }),
-          breadcrumbNode([
+            mainEntityId: artworkId,
+            primaryImage: absoluteUrl(item.src),
+          },
+          [
             { name: "Home", path: "/" },
             { name: "Work", path: "/work" },
             { name: item.title, path: `/work/${item.slug}` },
-          ]),
-          {
-            "@type": "CreativeWork",
-            "@id": absoluteUrl(`/work/${item.slug}#work`),
-            name: item.title,
-            description: item.description,
-            image: absoluteUrl(item.src),
-            creator: { "@id": `${site.url}/#person` },
-            genre: item.category,
-            url: absoluteUrl(`/work/${item.slug}`),
-          },
-        ]}
+          ],
+          [artworkNode],
+        )}
       />
 
       <nav className="breadcrumb" aria-label="Breadcrumb">

@@ -4,20 +4,13 @@ import { notFound } from "next/navigation";
 import type { PortableTextBlock } from "sanity";
 import { JsonLd } from "@/components/JsonLd";
 import { blogPosts } from "../../../../content/blog";
-import { site } from "../../../../content/site";
 import { hasSanityEnv } from "@/sanity/env";
 import { sanityClient } from "@/sanity/lib/client";
 import {
   blogPostBySlugQuery,
   blogPostSlugsQuery,
 } from "@/sanity/lib/queries";
-import {
-  absoluteUrl,
-  breadcrumbNode,
-  personNode,
-  webPageNode,
-  websiteNode,
-} from "@/lib/schema";
+import { buildPageGraph, blogPostingNode } from "@/lib/schema";
 
 type Params = Promise<{ slug: string }>;
 
@@ -124,35 +117,25 @@ export default async function BlogPostPage(props: { params: Params }) {
     notFound();
   }
 
+  const { id: articleId, node: articleNode } = blogPostingNode(post);
+
   return (
     <article className="page article">
       <JsonLd
-        data={[
-          websiteNode(),
-          personNode(),
-          webPageNode({
-            path: `/blog/${post.slug}`,
+        data={buildPageGraph(
+          `/blog/${post.slug}`,
+          {
             name: post.title,
             description: post.excerpt,
-          }),
-          breadcrumbNode([
+            mainEntityId: articleId,
+          },
+          [
             { name: "Home", path: "/" },
             { name: "Blog", path: "/blog" },
             { name: post.title, path: `/blog/${post.slug}` },
-          ]),
-          {
-            "@type": "BlogPosting",
-            "@id": absoluteUrl(`/blog/${post.slug}#post`),
-            headline: post.title,
-            description: post.excerpt,
-            datePublished: post.publishedAt,
-            author: { "@id": `${site.url}/#person` },
-            publisher: { "@id": `${site.url}/#person` },
-            mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
-            articleSection: post.category,
-            inLanguage: "en-AU",
-          },
-        ]}
+          ],
+          [articleNode],
+        )}
       />
 
       <header className="page-intro article__intro">

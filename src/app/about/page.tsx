@@ -3,12 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "../../components/JsonLd";
 import { site } from "../../../content/site";
-import {
-  breadcrumbNode,
-  personNode,
-  webPageNode,
-  websiteNode,
-} from "../../lib/schema";
+import { buildPageGraph, schemaIds } from "../../lib/schema";
 
 const pageTitle = `About ${site.name}`;
 const pageDescription = `${site.name} is a tattoo artist in Melbourne creating custom fine line, blackwork, and illustrative work.`;
@@ -34,20 +29,19 @@ export default function AboutPage() {
   return (
     <>
       <JsonLd
-        data={[
-          websiteNode(),
-          personNode(),
-          webPageNode({
-            path: "/about",
+        data={buildPageGraph(
+          "/about",
+          {
             name: pageTitle,
             description: pageDescription,
             type: "AboutPage",
-          }),
-          breadcrumbNode([
+            mainEntityId: schemaIds.person,
+          },
+          [
             { name: "Home", path: "/" },
             { name: "About", path: "/about" },
-          ]),
-        ]}
+          ],
+        )}
       />
 
       <article className="page" aria-labelledby="about-heading">

@@ -8,11 +8,9 @@ import { site } from "../../content/site";
 import { workItems } from "../../content/work";
 import {
   absoluteUrl,
-  breadcrumbNode,
-  localBusinessNode,
-  personNode,
-  webPageNode,
-  websiteNode,
+  buildPageGraph,
+  itemListNode,
+  schemaIds,
 } from "../lib/schema";
 
 const pageTitle = `${site.name} | Custom Tattoo Artist in Melbourne`;
@@ -65,30 +63,27 @@ export default function HomePage() {
   return (
     <>
       <JsonLd
-        data={[
-          websiteNode(),
-          personNode(),
-          localBusinessNode(),
-          webPageNode({
-            path: "/",
+        data={buildPageGraph(
+          "/",
+          {
             name: pageTitle,
             description: pageDescription,
-          }),
-          breadcrumbNode([{ name: "Home", path: "/" }]),
-          {
-            "@type": "ItemList",
-            "@id": `${site.url}/#featured-work`,
-            name: "Selected work",
-            itemListOrder: "https://schema.org/ItemListOrderAscending",
-            numberOfItems: workItems.length,
-            itemListElement: workItems.map((item, index) => ({
-              "@type": "ListItem",
-              position: index + 1,
-              url: absoluteUrl(`/work/${item.slug}`),
-              name: item.title,
-            })),
+            mainEntityId: schemaIds.person,
+            primaryImage: absoluteUrl("/opengraph-image"),
           },
-        ]}
+          [{ name: "Home", path: "/" }],
+          [
+            itemListNode(
+              `${site.url}/#featured-work`,
+              "Selected work",
+              workItems.map((item) => ({
+                url: absoluteUrl(`/work/${item.slug}`),
+                name: item.title,
+              })),
+            ),
+          ],
+          { includeService: true },
+        )}
       />
 
       <article aria-labelledby="home-heading">
