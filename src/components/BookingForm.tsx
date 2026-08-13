@@ -19,7 +19,9 @@ export function BookingForm() {
     const placement = String(data.get("placement") || "").trim();
     const idea = String(data.get("idea") || "").trim();
 
-    const subject = encodeURIComponent(`Tattoo booking enquiry — ${name}`);
+    const subject = encodeURIComponent(
+      `Melbourne tattoo booking enquiry — ${name}`,
+    );
     const body = encodeURIComponent(
       [
         `Name: ${name}`,
@@ -41,8 +43,8 @@ export function BookingForm() {
     return (
       <div className="booking-success" role="status">
         <p>
-          Your email app should open with the enquiry ready to send. If it
-          doesn’t, email{" "}
+          Your email app should open with the Melbourne tattoo enquiry ready to
+          send. If it doesn’t, email{" "}
           <a href={`mailto:${site.email}`}>{site.email}</a> directly.
         </p>
       </div>
@@ -50,22 +52,39 @@ export function BookingForm() {
   }
 
   return (
-    <form className="booking-form" onSubmit={onSubmit}>
+    <form
+      className="booking-form"
+      onSubmit={onSubmit}
+      aria-label="Book a tattoo consultation with Tobias Meredith in Melbourne"
+      noValidate={false}
+    >
       <label className="field">
-        <span>Name</span>
-        <input name="name" type="text" required autoComplete="name" />
+        <span>Name *</span>
+        <input
+          name="name"
+          type="text"
+          required
+          autoComplete="name"
+          aria-required="true"
+        />
       </label>
       <label className="field">
-        <span>Email</span>
-        <input name="email" type="email" required autoComplete="email" />
+        <span>Email *</span>
+        <input
+          name="email"
+          type="email"
+          required
+          autoComplete="email"
+          aria-required="true"
+        />
       </label>
       <label className="field">
         <span>Phone</span>
         <input name="phone" type="tel" autoComplete="tel" />
       </label>
       <label className="field">
-        <span>Style interest</span>
-        <select name="style" defaultValue="">
+        <span>Tattoo style</span>
+        <select name="style" defaultValue="" aria-label="Preferred tattoo style">
           <option value="" disabled>
             Select a style
           </option>
@@ -74,6 +93,8 @@ export function BookingForm() {
           <option>Illustrative</option>
           <option>Ornamental</option>
           <option>Geometric</option>
+          <option>Botanical</option>
+          <option>Script & lettering</option>
           <option>Not sure yet</option>
         </select>
       </label>
@@ -83,21 +104,27 @@ export function BookingForm() {
           name="placement"
           type="text"
           placeholder="e.g. forearm, shoulder, ribcage"
+          aria-label="Tattoo placement on the body"
         />
       </label>
       <label className="field field--full">
-        <span>Your idea</span>
+        <span>Your tattoo idea *</span>
         <textarea
           name="idea"
           rows={5}
           required
-          placeholder="Describe the concept, size, and any reference notes."
+          aria-required="true"
+          placeholder="Describe the concept, size, references, and timing."
         />
       </label>
       <div className="booking-form__actions">
         <button type="submit" className="button">
-          Send enquiry
+          Send message
         </button>
+        <p className="sr-only">
+          Fields marked with an asterisk are required for your Melbourne tattoo
+          consultation request.
+        </p>
       </div>
     </form>
   );

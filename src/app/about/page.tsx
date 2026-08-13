@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { Metadata } from "next";
+import Link from "next/link";
 import { site } from "../../../content/site";
 
 export const metadata: Metadata = {
@@ -23,7 +24,7 @@ export default function AboutPage() {
   return (
     <div className="page">
       <div className="page-intro">
-        <h1>About</h1>
+        <h1>About {site.name}</h1>
         <p>
           {site.name} is a tattoo artist based in Melbourne, Australia, creating
           custom fine line, blackwork, and illustrative tattoos for clients
@@ -42,7 +43,7 @@ export default function AboutPage() {
           />
         </div>
         <div className="about-copy">
-          <h2>Steady hands. Clear ideas.</h2>
+          <h2>Melbourne tattoo artist focused on lasting custom work</h2>
           <p>
             Tobias builds each piece around the client’s concept — refining
             composition, scale, and placement before any ink goes down.
@@ -53,8 +54,8 @@ export default function AboutPage() {
             the body and age well.
           </p>
           <p>
-            Based in {site.location}. For availability and bookings, use the
-            consultation form or email{" "}
+            Based in {site.location}. For availability and bookings, use the{" "}
+            <Link href="/booking">consultation form</Link> or email{" "}
             <a href={`mailto:${site.email}`}>{site.email}</a>.
           </p>
         </div>

@@ -57,7 +57,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <body className="site-shell">
         <JsonLd />
         <Header />
-        <main className="site-main">{children}</main>
+        <main
+          id="main-content"
+          className="site-main"
+          itemScope
+          itemType="https://schema.org/WebPage"
+        >
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

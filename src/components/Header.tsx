@@ -15,12 +15,15 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className={open ? "site-header is-menu-open" : "site-header"}>
+    <header
+      className={open ? "site-header is-menu-open" : "site-header"}
+      role="banner"
+    >
       <div className="site-header__inner">
         <Link
           href="/"
           className="site-logo"
-          aria-label={`${site.name} home`}
+          aria-label={`${site.name} — Melbourne tattoo artist home`}
           onClick={() => setOpen(false)}
         >
           {site.name}
@@ -30,7 +33,7 @@ export function Header() {
           type="button"
           className="nav-toggle"
           aria-expanded={open}
-          aria-controls="primary-nav"
+          aria-controls="primary-navigation"
           onClick={() => setOpen((value) => !value)}
         >
           <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
@@ -41,9 +44,9 @@ export function Header() {
         </button>
 
         <nav
-          id="primary-nav"
+          id="primary-navigation"
           className={open ? "site-nav is-open" : "site-nav"}
-          aria-label="Primary"
+          aria-label="Primary Melbourne tattoo studio navigation"
         >
           {nav.map((item) => (
             <Link
