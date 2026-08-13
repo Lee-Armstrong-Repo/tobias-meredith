@@ -785,9 +785,12 @@ ul {
   padding: 3.5rem 0 5rem;
 }
 
-.page-intro {
-  max-width: 42rem;
-  margin-bottom: 2.5rem;
+.about-role {
+  margin: -0.35rem 0 1rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
 }
 
 .about-grid {
@@ -1079,8 +1082,9 @@ ul {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .site-footer__grid {
-    grid-template-columns: 1.4fr 0.85fr 0.85fr 1fr;
+  .site-footer__grid,
+  .site-footer__grid--compact {
+    grid-template-columns: 1.5fr 0.9fr 1fr;
     gap: 2rem;
   }
 }

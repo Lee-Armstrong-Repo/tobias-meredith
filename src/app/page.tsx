@@ -5,7 +5,6 @@ import { BookingForm } from "../components/BookingForm";
 import { JsonLd } from "../components/JsonLd";
 import { homeClosing, homeProcess, studioFeatures } from "../../content/home";
 import { site } from "../../content/site";
-import { tattooStyles } from "../../content/styles";
 import { workItems } from "../../content/work";
 import {
   absoluteUrl,
@@ -93,7 +92,11 @@ export default function HomePage() {
       />
 
       <article aria-labelledby="home-heading">
-        <header id="home" className="tattoo-artist-hero" aria-labelledby="home-heading">
+        <header
+          id="home"
+          className="tattoo-artist-hero"
+          aria-labelledby="home-heading"
+        >
           <div className="tattoo-artist-hero__media" aria-hidden="true">
             <Image
               src="/images/hero-placeholder.svg"
@@ -167,12 +170,11 @@ export default function HomePage() {
         >
           <div className="section-shell">
             <header className="section-header section-header--center">
-              <h2 id="artist-heading">The artist</h2>
+              <h2 id="artist-heading">About {site.name}</h2>
               <div className="section-rule" aria-hidden="true" />
               <p className="section-lede">
-                A practice focused on custom fine line, blackwork, and
-                illustrative work — designed with care for how it will live on
-                the body.
+                Custom fine line, blackwork, and illustrative work through a
+                careful, consultation-led process.
               </p>
             </header>
 
@@ -193,15 +195,20 @@ export default function HomePage() {
                 </p>
                 <p>
                   {site.name} focuses on custom work with clear composition,
-                  refined line, and designs built to age well.
+                  refined line, and designs built to age well on the body.
                 </p>
                 <p>
                   Each piece starts with your idea, then moves through careful
                   sketching, placement planning, and a calm professional session.
                 </p>
+                <p>
+                  Tobias builds every tattoo around the client&apos;s concept —
+                  refining composition, scale, and placement before any ink goes
+                  down.
+                </p>
                 <p className="cta-row">
                   <Link href="/about" className="button-ghost button-ghost--dark">
-                    About {site.name}
+                    Read more
                   </Link>
                   <Link href="/booking" className="text-link">
                     Request availability
@@ -209,33 +216,6 @@ export default function HomePage() {
                 </p>
               </div>
             </article>
-          </div>
-        </section>
-
-        <section
-          id="styles"
-          className="tattoo-styles-melbourne"
-          aria-labelledby="styles-heading"
-        >
-          <div className="section-shell">
-            <header className="section-header section-header--center">
-              <h2 id="styles-heading">Tattoo styles</h2>
-              <div className="section-rule" aria-hidden="true" />
-              <p className="section-lede">
-                From simple lines to intricate designs — matched to your vision,
-                placement, and how the tattoo will age.
-              </p>
-            </header>
-            <ul className="tattoo-styles-melbourne__grid">
-              {tattooStyles.map((style) => (
-                <li key={style.slug} className="tattoo-style-card">
-                  <article aria-labelledby={`style-${style.slug}`}>
-                    <h3 id={`style-${style.slug}`}>{style.name}</h3>
-                    <p>{style.description}</p>
-                  </article>
-                </li>
-              ))}
-            </ul>
           </div>
         </section>
 

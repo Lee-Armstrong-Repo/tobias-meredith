@@ -26,28 +26,16 @@ export const site = {
 export const nav = [
   { href: "/about", label: "About" },
   { href: "/#artist", label: "Artist" },
-  { href: "/#styles", label: "Styles" },
   { href: "/#studio", label: "Studio" },
   { href: "/work", label: "Work" },
   { href: "/blog", label: "Blog" },
   { href: "/booking", label: "Contact" },
 ] as const;
 
-export const footerStyles = [
-  { href: "/#styles", label: "Fine Line" },
-  { href: "/#styles", label: "Blackwork" },
-  { href: "/#styles", label: "Illustrative" },
-  { href: "/#styles", label: "Ornamental" },
-  { href: "/#styles", label: "Geometric" },
-  { href: "/#styles", label: "Botanical" },
-  { href: "/#styles", label: "Script" },
-  { href: "/#styles", label: "Custom" },
-] as const;
-
 export const footerInfo = [
   { href: "/about", label: "About" },
-  { href: "/#artist", label: "The Artist" },
-  { href: "/#styles", label: "Styles" },
+  { href: "/#artist", label: "Artist" },
+  { href: "/#studio", label: "Studio" },
   { href: "/work", label: "Work" },
   { href: "/blog", label: "Blog" },
   { href: "/booking", label: "Contact" },

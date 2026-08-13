@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { footerInfo, footerStyles, site } from "../../content/site";
+import { footerInfo, site } from "../../content/site";
 
 export function Footer() {
   return (
     <footer className="site-footer">
       <div className="site-footer__inner">
-        <div className="site-footer__grid">
+        <div className="site-footer__grid site-footer__grid--compact">
           <section
             className="site-footer__brand-block"
             aria-labelledby="footer-brand-heading"
@@ -23,19 +23,6 @@ export function Footer() {
               <a href={`mailto:${site.email}`}>{site.email}</a>
             </address>
           </section>
-
-          <nav aria-labelledby="footer-styles-heading">
-            <p id="footer-styles-heading" className="site-footer__heading">
-              Styles
-            </p>
-            <ul className="site-footer__list">
-              {footerStyles.map((item) => (
-                <li key={item.label}>
-                  <Link href={item.href}>{item.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
 
           <nav aria-labelledby="footer-info-heading">
             <p id="footer-info-heading" className="site-footer__heading">

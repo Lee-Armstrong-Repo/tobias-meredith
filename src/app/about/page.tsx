@@ -53,10 +53,13 @@ export default function AboutPage() {
       <article className="page" aria-labelledby="about-heading">
         <header className="page-intro">
           <h1 id="about-heading">About {site.name}</h1>
+          <p className="about-role">
+            Fine line, blackwork &amp; illustrative tattooing
+          </p>
           <p>
             {site.name} is a tattoo artist based in Melbourne, creating custom
-            fine line, blackwork, and illustrative work for clients across the
-            city.
+            fine line, blackwork, and illustrative work through a careful,
+            consultation-led process.
           </p>
         </header>
 
@@ -71,23 +74,32 @@ export default function AboutPage() {
             />
           </figure>
           <section className="about-copy" aria-labelledby="about-focus-heading">
-            <h2 id="about-focus-heading">
-              Focused on lasting custom work
-            </h2>
+            <h2 id="about-focus-heading">Focused on lasting custom work</h2>
             <p>
-              Tobias builds each piece around the client&apos;s concept —
-              refining composition, scale, and placement before any ink goes
-              down.
+              {site.name} focuses on custom work with clear composition, refined
+              line, and designs built to age well on the body.
             </p>
             <p>
-              The work leans toward fine line, blackwork, and illustrative
-              tattoos, with an emphasis on pieces that sit cleanly on the body
-              and age well.
+              Each piece starts with your idea, then moves through careful
+              sketching, placement planning, and a calm professional session.
+            </p>
+            <p>
+              Tobias builds every tattoo around the client&apos;s concept —
+              refining composition, scale, and placement before any ink goes
+              down.
             </p>
             <p>
               Based in {site.location}. For availability, use the{" "}
               <Link href="/booking">consultation form</Link> or email{" "}
               <a href={`mailto:${site.email}`}>{site.email}</a>.
+            </p>
+            <p className="cta-row">
+              <Link href="/booking" className="button-ghost button-ghost--dark">
+                Request availability
+              </Link>
+              <Link href="/work" className="text-link">
+                View portfolio
+              </Link>
             </p>
           </section>
         </div>
