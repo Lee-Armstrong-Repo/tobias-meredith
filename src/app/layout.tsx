@@ -1,9 +1,30 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
+import { Cormorant_Garamond, Poppins } from "next/font/google";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { JsonLd } from "../components/JsonLd";
 import { site } from "../../content/site";
 import "./globals.css";
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
+  variable: "--font-sans",
+  display: "swap",
+});
+
+const cormorant = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+export const viewport: Viewport = {
+  themeColor: "#000000",
+  width: "device-width",
+  initialScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -13,7 +34,7 @@ export const metadata: Metadata = {
   },
   description: site.description,
   applicationName: site.name,
-  authors: [{ name: site.name }],
+  authors: [{ name: site.name, url: site.url }],
   creator: site.name,
   publisher: site.name,
   keywords: [...site.keywords],
@@ -28,11 +49,20 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: `${site.name} | Melbourne Tattoo Artist`,
     description: site.description,
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${site.name} — Melbourne tattoo artist`,
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: `${site.name} | Melbourne Tattoo Artist`,
     description: site.description,
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -53,16 +83,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-AU" className="h-full">
+    <html
+      lang="en-AU"
+      className={`h-full ${poppins.variable} ${cormorant.variable}`}
+    >
       <body className="site-shell">
         <JsonLd />
+        <a className="skip-link" href="#main-content">
+          Skip to main content
+        </a>
         <Header />
-        <main
-          id="main-content"
-          className="site-main"
-          itemScope
-          itemType="https://schema.org/WebPage"
-        >
+        <main id="main-content" className="site-main">
           {children}
         </main>
         <Footer />

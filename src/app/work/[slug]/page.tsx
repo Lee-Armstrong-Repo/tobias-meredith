@@ -44,8 +44,15 @@ export async function generateMetadata(props: {
     openGraph: {
       title: `${item.title} | ${site.name} Melbourne`,
       description: item.description,
+      url: `/work/${item.slug}`,
       type: "article",
       images: [{ url: item.src, alt: item.alt }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${item.title} | ${site.name} Melbourne`,
+      description: item.description,
+      images: [item.src],
     },
   };
 }

@@ -18,6 +18,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Work | ${site.name} Melbourne Tattoo Portfolio`,
     description: `View selected tattoo work by ${site.name} in Melbourne — fine line, blackwork, and illustrative pieces.`,
+    url: "/work",
+    type: "website",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Work | ${site.name} Melbourne Tattoo Portfolio`,
+    description: `View selected tattoo work by ${site.name} in Melbourne — fine line, blackwork, and illustrative pieces.`,
+    images: ["/opengraph-image"],
   },
 };
 

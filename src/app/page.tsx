@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { BookingForm } from "../components/BookingForm";
-import { homeProcess, studioFeatures } from "../../content/home";
+import { homeClosing, homeProcess, studioFeatures } from "../../content/home";
 import { site } from "../../content/site";
 import { tattooStyles } from "../../content/styles";
 import { workItems } from "../../content/work";
@@ -18,8 +18,38 @@ export const metadata: Metadata = {
     title: `${site.name} | Melbourne Tattoo Artist`,
     description: site.description,
     url: "/",
+    type: "website",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: `${site.name} — Melbourne tattoo artist`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${site.name} | Melbourne Tattoo Artist`,
+    description: site.description,
+    images: ["/opengraph-image"],
   },
 };
+
+function underlineHeading(heading: string, underline: string) {
+  const index = heading.indexOf(underline);
+  if (index === -1) {
+    return heading;
+  }
+
+  return (
+    <>
+      {heading.slice(0, index)}
+      <span className="story-underline">{underline}</span>
+      {heading.slice(index + underline.length)}
+    </>
+  );
+}
 
 export default function HomePage() {
   return (
@@ -41,23 +71,17 @@ export default function HomePage() {
         </div>
         <div className="tattoo-artist-hero__overlay" />
         <div className="tattoo-artist-hero__content">
-          <p className="tattoo-artist-hero__eyebrow">
-            {site.city} · Custom Tattoo Artist
-          </p>
           <h1 id="tattoo-artist-hero-heading" className="tattoo-artist-hero__title">
-            {site.name}
+            {site.shortName}
           </h1>
           <p className="tattoo-artist-hero__subtitle">{site.headline}</p>
           <p className="tattoo-artist-hero__intro">
-            Fine line, blackwork, and illustrative tattoos crafted through a
-            slower, custom process — from first conversation to final line.
+            The moment you begin a consultation with {site.name}, you&apos;ll
+            understand why this Melbourne tattoo practice is different.
           </p>
           <div className="tattoo-artist-hero__actions">
-            <Link href="/booking" className="button">
-              Book a consultation
-            </Link>
-            <Link href="/work" className="button-secondary button-secondary--on-dark">
-              View tattoo portfolio
+            <Link href="/work" className="button-ghost">
+              View work
             </Link>
           </div>
         </div>
@@ -66,30 +90,26 @@ export default function HomePage() {
       <section
         id="tattoo-process-melbourne"
         className="tattoo-process-melbourne"
-        aria-labelledby="tattoo-process-heading"
+        aria-label="Custom tattoo process"
       >
         <div className="section-shell">
-          <header className="section-header">
-            <p className="section-eyebrow">The process</p>
-            <h2 id="tattoo-process-heading">
-              Custom tattoos built around your story
-            </h2>
-            <p className="section-lede">
-              The moment you begin a consultation with {site.name}, you will
-              understand why this Melbourne tattoo practice is different.
-            </p>
-          </header>
-          <ol className="tattoo-process-melbourne__list">
-            {homeProcess.map((step, index) => (
-              <li key={step.heading} className="tattoo-process-melbourne__item">
-                <span className="tattoo-process-melbourne__index" aria-hidden="true">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3>{step.heading}</h3>
-                <p>{step.body}</p>
-              </li>
+          {homeProcess.map((step) => (
+            <article
+              key={step.heading}
+              className={`story-block story-block--${step.align}`}
+            >
+              <h2 className="story-block__heading">
+                {underlineHeading(step.heading, step.underline)}
+              </h2>
+              <p className="story-block__body">{step.body}</p>
+            </article>
+          ))}
+
+          <div className="story-closing">
+            {homeClosing.lines.map((line) => (
+              <p key={line}>{line}</p>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
@@ -98,41 +118,52 @@ export default function HomePage() {
         className="melbourne-tattoo-artist"
         aria-labelledby="melbourne-tattoo-artist-heading"
       >
-        <div className="section-shell melbourne-tattoo-artist__grid">
-          <div className="melbourne-tattoo-artist__media">
-            <Image
-              src="/images/about-placeholder.svg"
-              alt={`${site.name}, Melbourne tattoo artist creating custom tattoos`}
-              fill
-              sizes="(max-width: 859px) 100vw, 42vw"
-              unoptimized
-            />
-          </div>
-          <div className="melbourne-tattoo-artist__copy">
-            <p className="section-eyebrow">Meet the artist</p>
-            <h2 id="melbourne-tattoo-artist-heading">{site.name}</h2>
-            <p className="melbourne-tattoo-artist__role">
-              Specialising in fine line, blackwork &amp; illustrative tattooing
+        <div className="section-shell">
+          <header className="section-header section-header--center">
+            <h2 id="melbourne-tattoo-artist-heading">The artist</h2>
+            <div className="section-rule" aria-hidden="true" />
+            <p className="section-lede">
+              A Melbourne tattoo practice focused on custom fine line, blackwork,
+              and illustrative work — designed with care for how it will live on
+              the body.
             </p>
-            <p>
-              {site.name} is a Melbourne tattoo artist focused on custom work
-              with clear composition, refined line, and designs built to age
-              well on the body.
-            </p>
-            <p>
-              Each piece starts with your idea — then moves through careful
-              sketching, placement planning, and a calm, professional tattoo
-              session in Melbourne.
-            </p>
-            <div className="cta-row">
-              <Link href="/about" className="button-secondary">
-                About {site.name}
-              </Link>
-              <Link href="/booking" className="text-link">
-                Request availability
-              </Link>
+          </header>
+
+          <article className="artist-feature">
+            <div className="artist-feature__media">
+              <Image
+                src="/images/about-placeholder.svg"
+                alt={`${site.name}, Melbourne tattoo artist creating custom tattoos`}
+                fill
+                sizes="(max-width: 859px) 100vw, 42vw"
+                unoptimized
+              />
             </div>
-          </div>
+            <div className="artist-feature__copy">
+              <h3>{site.name}</h3>
+              <p className="artist-feature__role">
+                Specialising in fine line, blackwork &amp; illustrative tattooing
+              </p>
+              <p>
+                {site.name} is a Melbourne tattoo artist focused on custom work
+                with clear composition, refined line, and designs built to age
+                well on the body.
+              </p>
+              <p>
+                Each piece starts with your idea — then moves through careful
+                sketching, placement planning, and a calm, professional tattoo
+                session in Melbourne.
+              </p>
+              <div className="cta-row">
+                <Link href="/about" className="button-ghost button-ghost--dark">
+                  View profile
+                </Link>
+                <Link href="/booking" className="text-link">
+                  Request availability
+                </Link>
+              </div>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -142,14 +173,12 @@ export default function HomePage() {
         aria-labelledby="tattoo-styles-heading"
       >
         <div className="section-shell">
-          <header className="section-header">
-            <p className="section-eyebrow">Tattoo styles</p>
-            <h2 id="tattoo-styles-heading">
-              Fine line to bold blackwork — matched to your vision
-            </h2>
+          <header className="section-header section-header--center">
+            <h2 id="tattoo-styles-heading">Tattoo styles</h2>
+            <div className="section-rule" aria-hidden="true" />
             <p className="section-lede">
-              From simple lines to intricate custom designs, {site.name} works
-              across styles to create tattoos that fit your idea and placement.
+              Simple lines to intricate designs — styles matched to your vision,
+              placement, and how the tattoo will age.
             </p>
           </header>
           <ul className="tattoo-styles-melbourne__grid">
@@ -158,7 +187,6 @@ export default function HomePage() {
                 <article aria-labelledby={`style-${style.slug}`}>
                   <h3 id={`style-${style.slug}`}>{style.name}</h3>
                   <p>{style.description}</p>
-                  <span className="sr-only">{style.title}</span>
                 </article>
               </li>
             ))}
@@ -172,14 +200,12 @@ export default function HomePage() {
         aria-labelledby="tattoo-studio-heading"
       >
         <div className="section-shell">
-          <header className="section-header">
-            <p className="section-eyebrow">The studio</p>
-            <h2 id="tattoo-studio-heading">
-              A calm Melbourne space for custom tattoo work
-            </h2>
+          <header className="section-header section-header--center">
+            <h2 id="tattoo-studio-heading">Our studio</h2>
+            <div className="section-rule" aria-hidden="true" />
             <p className="section-lede">
-              Step into a considered tattoo environment where artistry, hygiene,
-              and comfort support every session with {site.name}.
+              Step into a considered Melbourne space where artistry meets comfort
+              — designed for focus, hygiene, and creative expression.
             </p>
           </header>
           <div className="tattoo-studio-melbourne__feature-media">
@@ -199,6 +225,11 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
+          <div className="section-cta">
+            <Link href="/booking" className="button-ghost button-ghost--dark">
+              Book a consultation
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -208,20 +239,13 @@ export default function HomePage() {
         aria-labelledby="tattoo-portfolio-heading"
       >
         <div className="section-shell">
-          <header className="section-header section-header--split">
-            <div>
-              <p className="section-eyebrow">Portfolio</p>
-              <h2 id="tattoo-portfolio-heading">
-                Tattoo portfolio by {site.name}
-              </h2>
-              <p className="section-lede">
-                A showcase of custom tattoo artistry by Melbourne tattoo artist{" "}
-                {site.name}.
-              </p>
-            </div>
-            <Link href="/work" className="button-secondary">
-              View full portfolio
-            </Link>
+          <header className="section-header section-header--center">
+            <h2 id="tattoo-portfolio-heading">Our work</h2>
+            <div className="section-rule" aria-hidden="true" />
+            <p className="section-lede">
+              A showcase of custom tattoo artistry by Melbourne tattoo artist{" "}
+              {site.name}.
+            </p>
           </header>
           <ul className="tattoo-portfolio-melbourne__grid">
             {workItems.map((item) => (
@@ -256,6 +280,11 @@ export default function HomePage() {
               </li>
             ))}
           </ul>
+          <div className="section-cta">
+            <Link href="/work" className="button-ghost button-ghost--dark">
+              View full gallery
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -266,8 +295,8 @@ export default function HomePage() {
       >
         <div className="section-shell tattoo-booking-melbourne__grid">
           <header className="section-header">
-            <p className="section-eyebrow">Contact</p>
-            <h2 id="tattoo-booking-heading">Book a Melbourne tattoo consultation</h2>
+            <h2 id="tattoo-booking-heading">Contact us</h2>
+            <div className="section-rule section-rule--left" aria-hidden="true" />
             <p className="section-lede">{site.bookingNote}</p>
             <p className="tattoo-booking-melbourne__email">
               Prefer email?{" "}

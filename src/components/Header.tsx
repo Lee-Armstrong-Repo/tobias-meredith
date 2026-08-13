@@ -26,7 +26,7 @@ export function Header() {
           aria-label={`${site.name} — Melbourne tattoo artist home`}
           onClick={() => setOpen(false)}
         >
-          {site.name}
+          {site.name.split(" ")[0]}
         </Link>
 
         <button
@@ -46,18 +46,21 @@ export function Header() {
         <nav
           id="primary-navigation"
           className={open ? "site-nav is-open" : "site-nav"}
-          aria-label="Primary Melbourne tattoo studio navigation"
+          aria-label="Primary"
         >
-          {nav.map((item) => (
-            <Link
-              key={item.href}
-              href={item.href}
-              className="site-nav__link"
-              onClick={() => setOpen(false)}
-            >
-              {item.label}
-            </Link>
-          ))}
+          <ul className="site-nav__list">
+            {nav.map((item) => (
+              <li key={item.href}>
+                <Link
+                  href={item.href}
+                  className="site-nav__link"
+                  onClick={() => setOpen(false)}
+                >
+                  {item.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </nav>
       </div>
     </header>

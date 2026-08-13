@@ -118,7 +118,7 @@ export function BookingForm() {
         />
       </label>
       <div className="booking-form__actions">
-        <button type="submit" className="button">
+        <button type="submit" className="button-ghost button-ghost--dark">
           Send message
         </button>
         <p className="sr-only">

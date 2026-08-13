@@ -1,35 +1,44 @@
 export const homeProcess = [
   {
     heading: "It starts with a conversation.",
-    body: "Your ideas, references, and story shape the direction before any sketch begins.",
+    underline: "It",
+    body: "Your ideas, your inspiration, your story.",
+    align: "left" as const,
   },
   {
-    heading: "Every detail is refined before the needle.",
-    body: "From composition and scale to placement on the body, your vision guides each decision.",
+    heading: "We believe in taking time to perfect every detail.",
+    underline: "detail",
+    body: "From the initial sketch to the final line, your vision guides us.",
+    align: "right" as const,
   },
   {
-    heading: "Custom work built for how it will age.",
-    body: "Fine line, blackwork, and illustrative tattoos designed to stay clear, balanced, and personal.",
-  },
-  {
-    heading: "A considered Melbourne tattoo practice.",
-    body: "Tobias Meredith focuses on thoughtful custom pieces — not rushed flash — for clients across Melbourne.",
+    heading: "Custom work built with care for how it will age.",
+    underline: "Custom",
+    body: "Whether you're seeking delicate fine lines or bold blackwork, every piece is designed for clarity, balance, and longevity.",
+    align: "left" as const,
   },
 ] as const;
 
+export const homeClosing = {
+  lines: [
+    "Every piece we create adds to a legacy of excellence.",
+    "Every client becomes part of our story.",
+  ],
+} as const;
+
 export const studioFeatures = [
   {
-    title: "Professional standards",
+    title: "Professional Standards",
     description:
       "Medical-grade hygiene, sterile setup, and careful aftercare guidance for every session.",
   },
   {
-    title: "Private, focused sessions",
+    title: "Private, Focused Sessions",
     description:
       "A calm tattoo environment designed for concentration, comfort, and clear communication.",
   },
   {
-    title: "Custom-first process",
+    title: "Custom-First Process",
     description:
       "Consultation, design development, and placement planning before your Melbourne tattoo appointment.",
   },

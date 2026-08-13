@@ -17,6 +17,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: `About ${site.name} | Melbourne Tattoo Artist`,
     description: `Meet ${site.name}, a Melbourne tattoo artist focused on custom fine line, blackwork, and illustrative work.`,
+    url: "/about",
+    type: "website",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `About ${site.name} | Melbourne Tattoo Artist`,
+    description: `Meet ${site.name}, a Melbourne tattoo artist focused on custom fine line, blackwork, and illustrative work.`,
+    images: ["/opengraph-image"],
   },
 };
 
