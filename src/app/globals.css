@@ -33,7 +33,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + 0.75rem);
 }
 
 body {
@@ -1086,10 +1086,6 @@ ul {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   .tattoo-portfolio-card__media img,
   .nav-toggle__bars span {
     transition: none;

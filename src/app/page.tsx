@@ -281,7 +281,7 @@ export default function HomePage() {
         </section>
 
         <section
-          id="work"
+          id="selected-work"
           className="tattoo-portfolio-melbourne"
           aria-labelledby="work-heading"
         >
