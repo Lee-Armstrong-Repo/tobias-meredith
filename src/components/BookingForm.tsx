@@ -41,10 +41,10 @@ export function BookingForm() {
 
   if (status === "sent") {
     return (
-      <div className="booking-success" role="status">
+      <div className="booking-success" role="status" aria-live="polite">
         <p>
           Your email app should open with the Melbourne tattoo enquiry ready to
-          send. If it doesn’t, email{" "}
+          send. If it doesn&apos;t, email{" "}
           <a href={`mailto:${site.email}`}>{site.email}</a> directly.
         </p>
       </div>
@@ -55,75 +55,81 @@ export function BookingForm() {
     <form
       className="booking-form"
       onSubmit={onSubmit}
-      aria-label="Book a tattoo consultation with Tobias Meredith in Melbourne"
-      noValidate={false}
+      aria-labelledby="tattoo-booking-heading"
+      name="tattoo-consultation"
     >
-      <label className="field">
-        <span>Name *</span>
-        <input
-          name="name"
-          type="text"
-          required
-          autoComplete="name"
-          aria-required="true"
-        />
-      </label>
-      <label className="field">
-        <span>Email *</span>
-        <input
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          aria-required="true"
-        />
-      </label>
-      <label className="field">
-        <span>Phone</span>
-        <input name="phone" type="tel" autoComplete="tel" />
-      </label>
-      <label className="field">
-        <span>Tattoo style</span>
-        <select name="style" defaultValue="" aria-label="Preferred tattoo style">
-          <option value="" disabled>
-            Select a style
-          </option>
-          <option>Fine line</option>
-          <option>Blackwork</option>
-          <option>Illustrative</option>
-          <option>Ornamental</option>
-          <option>Geometric</option>
-          <option>Botanical</option>
-          <option>Script & lettering</option>
-          <option>Not sure yet</option>
-        </select>
-      </label>
-      <label className="field field--full">
-        <span>Placement</span>
-        <input
-          name="placement"
-          type="text"
-          placeholder="e.g. forearm, shoulder, ribcage"
-          aria-label="Tattoo placement on the body"
-        />
-      </label>
-      <label className="field field--full">
-        <span>Your tattoo idea *</span>
-        <textarea
-          name="idea"
-          rows={5}
-          required
-          aria-required="true"
-          placeholder="Describe the concept, size, references, and timing."
-        />
-      </label>
+      <fieldset className="booking-form__fieldset">
+        <legend className="sr-only">
+          Tattoo consultation enquiry for {site.name} in Melbourne
+        </legend>
+
+        <label className="field">
+          <span>Name *</span>
+          <input
+            name="name"
+            type="text"
+            required
+            autoComplete="name"
+            aria-required="true"
+          />
+        </label>
+        <label className="field">
+          <span>Email *</span>
+          <input
+            name="email"
+            type="email"
+            required
+            autoComplete="email"
+            aria-required="true"
+          />
+        </label>
+        <label className="field">
+          <span>Phone</span>
+          <input name="phone" type="tel" autoComplete="tel" />
+        </label>
+        <label className="field">
+          <span>Tattoo style</span>
+          <select name="style" defaultValue="">
+            <option value="" disabled>
+              Select a style
+            </option>
+            <option>Fine line</option>
+            <option>Blackwork</option>
+            <option>Illustrative</option>
+            <option>Ornamental</option>
+            <option>Geometric</option>
+            <option>Botanical</option>
+            <option>Script & lettering</option>
+            <option>Not sure yet</option>
+          </select>
+        </label>
+        <label className="field field--full">
+          <span>Placement</span>
+          <input
+            name="placement"
+            type="text"
+            placeholder="e.g. forearm, shoulder, ribcage"
+            autoComplete="off"
+          />
+        </label>
+        <label className="field field--full">
+          <span>Your tattoo idea *</span>
+          <textarea
+            name="idea"
+            rows={5}
+            required
+            aria-required="true"
+            placeholder="Describe the concept, size, references, and timing."
+          />
+        </label>
+      </fieldset>
+
       <div className="booking-form__actions">
         <button type="submit" className="button-ghost button-ghost--dark">
-          Send message
+          Send consultation message
         </button>
-        <p className="sr-only">
-          Fields marked with an asterisk are required for your Melbourne tattoo
-          consultation request.
+        <p className="booking-form__required-note">
+          Fields marked with * are required.
         </p>
       </div>
     </form>

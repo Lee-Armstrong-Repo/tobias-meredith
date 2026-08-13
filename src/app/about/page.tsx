@@ -31,18 +31,18 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="page">
-      <div className="page-intro">
-        <h1>About {site.name}</h1>
+    <article className="page" aria-labelledby="about-heading">
+      <header className="page-intro">
+        <h1 id="about-heading">About {site.name}</h1>
         <p>
           {site.name} is a tattoo artist based in Melbourne, Australia, creating
           custom fine line, blackwork, and illustrative tattoos for clients
           across the city.
         </p>
-      </div>
+      </header>
 
       <div className="about-grid">
-        <div className="about-grid__media">
+        <figure className="about-grid__media">
           <Image
             src="/images/about-placeholder.svg"
             alt={`${site.name}, Melbourne tattoo artist portrait`}
@@ -50,11 +50,16 @@ export default function AboutPage() {
             sizes="(max-width: 859px) 100vw, 45vw"
             unoptimized
           />
-        </div>
-        <div className="about-copy">
-          <h2>Melbourne tattoo artist focused on lasting custom work</h2>
+          <figcaption className="sr-only">
+            Portrait of Melbourne tattoo artist {site.name}.
+          </figcaption>
+        </figure>
+        <section className="about-copy" aria-labelledby="about-focus-heading">
+          <h2 id="about-focus-heading">
+            Melbourne tattoo artist focused on lasting custom work
+          </h2>
           <p>
-            Tobias builds each piece around the client’s concept — refining
+            Tobias builds each piece around the client&apos;s concept — refining
             composition, scale, and placement before any ink goes down.
           </p>
           <p>
@@ -64,11 +69,11 @@ export default function AboutPage() {
           </p>
           <p>
             Based in {site.location}. For availability and bookings, use the{" "}
-            <Link href="/booking">consultation form</Link> or email{" "}
+            <Link href="/booking">tattoo consultation form</Link> or email{" "}
             <a href={`mailto:${site.email}`}>{site.email}</a>.
           </p>
-        </div>
+        </section>
       </div>
-    </div>
+    </article>
   );
 }

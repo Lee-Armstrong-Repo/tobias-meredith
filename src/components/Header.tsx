@@ -15,19 +15,19 @@ export function Header() {
   }, [open]);
 
   return (
-    <header
-      className={open ? "site-header is-menu-open" : "site-header"}
-      role="banner"
-    >
+    <header className={open ? "site-header is-menu-open" : "site-header"}>
       <div className="site-header__inner">
-        <Link
-          href="/"
-          className="site-logo"
-          aria-label={`${site.name} — Melbourne tattoo artist home`}
-          onClick={() => setOpen(false)}
-        >
-          {site.name.split(" ")[0]}
-        </Link>
+        <p className="site-logo-wrap">
+          <Link
+            href="/"
+            className="site-logo"
+            aria-label={`${site.name} home — Melbourne tattoo artist`}
+            onClick={() => setOpen(false)}
+          >
+            <span aria-hidden="true">{site.name.split(" ")[0]}</span>
+            <span className="sr-only">{site.name}</span>
+          </Link>
+        </p>
 
         <button
           type="button"
@@ -37,7 +37,10 @@ export function Header() {
           onClick={() => setOpen((value) => !value)}
         >
           <span className="sr-only">{open ? "Close menu" : "Open menu"}</span>
-          <span className={open ? "nav-toggle__bars is-open" : "nav-toggle__bars"}>
+          <span
+            className={open ? "nav-toggle__bars is-open" : "nav-toggle__bars"}
+            aria-hidden="true"
+          >
             <span />
             <span />
           </span>
@@ -46,7 +49,7 @@ export function Header() {
         <nav
           id="primary-navigation"
           className={open ? "site-nav is-open" : "site-nav"}
-          aria-label="Primary"
+          aria-label="Primary Melbourne tattoo artist navigation"
         >
           <ul className="site-nav__list">
             {nav.map((item) => (
