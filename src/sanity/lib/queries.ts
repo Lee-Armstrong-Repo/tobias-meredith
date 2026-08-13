@@ -39,7 +39,8 @@ export const blogPostsQuery = groq`
     publishedAt,
     category,
     readTime,
-    coverImage
+    coverImage,
+    "coverImageUrl": coverImage.asset->url
   }
 `;
 
@@ -57,6 +58,7 @@ export const blogPostBySlugQuery = groq`
     category,
     readTime,
     coverImage,
+    "coverImageUrl": coverImage.asset->url,
     body
   }
 `;

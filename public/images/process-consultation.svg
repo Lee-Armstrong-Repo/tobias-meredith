@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="Consultation process placeholder">
+  <rect width="1600" height="1000" fill="#141210"/>
+  <rect x="120" y="180" width="1360" height="640" fill="#221f1b"/>
+  <text x="800" y="510" text-anchor="middle" fill="rgba(255,255,255,0.38)" font-family="Georgia, serif" font-size="32" letter-spacing="6">CONSULTATION</text>
+</svg>

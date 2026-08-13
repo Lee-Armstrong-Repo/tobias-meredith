@@ -1,7 +1,9 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
 import { blogPosts } from "../../../content/blog";
+import { blogPlaceholder } from "../../../content/placeholders";
 import { site } from "../../../content/site";
 import { sanityClient } from "@/sanity/lib/client";
 import { blogPostsQuery } from "@/sanity/lib/queries";
@@ -49,6 +51,7 @@ type SanityBlogPost = {
   publishedAt: string;
   category: string;
   readTime: string;
+  coverImageUrl?: string;
 };
 
 async function getBlogPosts() {
@@ -56,15 +59,22 @@ async function getBlogPosts() {
     const cmsPosts = await sanityClient.fetch<SanityBlogPost[]>(blogPostsQuery);
 
     if (cmsPosts.length > 0) {
-      return cmsPosts.map((post) => ({
-        id: post._id,
-        title: post.title,
-        slug: post.slug.current,
-        excerpt: post.excerpt,
-        publishedAt: post.publishedAt,
-        category: post.category,
-        readTime: post.readTime,
-      }));
+      return cmsPosts.map((post, index) => {
+        const fallback = blogPosts[index % blogPosts.length];
+
+        return {
+          id: post._id,
+          title: post.title,
+          slug: post.slug.current,
+          excerpt: post.excerpt,
+          publishedAt: post.publishedAt,
+          category: post.category,
+          readTime: post.readTime,
+          image: post.coverImageUrl || fallback?.image || blogPlaceholder(index),
+          imageAlt: fallback?.imageAlt || post.title,
+          isPlaceholder: !post.coverImageUrl,
+        };
+      });
     }
   }
 
@@ -76,6 +86,9 @@ async function getBlogPosts() {
     publishedAt: post.publishedAt,
     category: post.category,
     readTime: post.readTime,
+    image: post.image,
+    imageAlt: post.imageAlt,
+    isPlaceholder: post.image.endsWith(".svg"),
   }));
 }
 
@@ -121,20 +134,31 @@ export default async function BlogPage() {
         <div className="blog-list">
           {posts.map((post) => (
             <article key={post.slug} className="blog-card">
-              <p className="blog-card__meta">
-                <span>{post.category}</span>
-                <span>{post.readTime}</span>
-              </p>
-              <h2>
-                <Link href={`/blog/${post.slug}`}>{post.title}</Link>
-              </h2>
-              <p>{post.excerpt}</p>
-              <p className="blog-card__meta">
-                <time dateTime={post.publishedAt}>
-                  {formatDate(post.publishedAt)}
-                </time>
-                <Link href={`/blog/${post.slug}`}>Read article</Link>
-              </p>
+              <Link href={`/blog/${post.slug}`} className="blog-card__link">
+                <figure className="blog-card__media">
+                  <Image
+                    src={post.image}
+                    alt={post.imageAlt}
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
+                    unoptimized={post.isPlaceholder}
+                  />
+                </figure>
+                <div className="blog-card__body">
+                  <p className="blog-card__meta">
+                    <span>{post.category}</span>
+                    <span>{post.readTime}</span>
+                  </p>
+                  <h2>{post.title}</h2>
+                  <p>{post.excerpt}</p>
+                  <p className="blog-card__meta">
+                    <time dateTime={post.publishedAt}>
+                      {formatDate(post.publishedAt)}
+                    </time>
+                    <span>Read article</span>
+                  </p>
+                </div>
+              </Link>
             </article>
           ))}
         </div>

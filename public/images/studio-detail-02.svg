@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200" role="img" aria-label="Studio workspace placeholder">
+  <defs>
+    <linearGradient id="detail02" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f1b18"/>
+      <stop offset="100%" stop-color="#2f2a25"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="1200" fill="url(#detail02)"/>
+  <rect x="180" y="320" width="1240" height="560" fill="rgba(255,255,255,0.04)"/>
+  <text x="800" y="620" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-family="Helvetica, Arial, sans-serif" font-size="28" letter-spacing="6">WORKSPACE</text>
+</svg>

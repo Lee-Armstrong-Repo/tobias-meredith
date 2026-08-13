@@ -1,3 +1,5 @@
+import { blogPlaceholder } from "./placeholders";
+
 export type BlogPost = {
   slug: string;
   title: string;
@@ -5,6 +7,8 @@ export type BlogPost = {
   publishedAt: string;
   category: string;
   readTime: string;
+  image: string;
+  imageAlt: string;
   body: string[];
 };
 
@@ -17,6 +21,8 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-08-05",
     category: "Client Guide",
     readTime: "4 min read",
+    image: blogPlaceholder(0),
+    imageAlt: "Preparing for a tattoo appointment",
     body: [
       "Preparing properly makes the appointment easier for both the client and the artist. Aim for a solid night's sleep, a proper meal beforehand, and plenty of water.",
       "Wear clothing that makes the area easy to access, and bring along any reference material that helps explain the idea clearly.",
@@ -31,6 +37,8 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-08-05",
     category: "Design",
     readTime: "5 min read",
+    image: blogPlaceholder(1),
+    imageAlt: "Choosing tattoo placement",
     body: [
       "Placement changes how a tattoo reads at rest and in motion. A design that works on the forearm may need to be rethought for the ribs or shoulder.",
       "Clients should think about visibility, day-to-day comfort, future expansion, and how the body shape supports the composition.",
@@ -45,6 +53,8 @@ export const blogPosts: BlogPost[] = [
     publishedAt: "2026-08-05",
     category: "Style",
     readTime: "6 min read",
+    image: blogPlaceholder(2),
+    imageAlt: "Fine line and blackwork tattoo styles",
     body: [
       "Fine line tattoos can feel delicate and subtle, while blackwork often delivers stronger contrast and a bolder visual impact.",
       "Each approach suits different subject matter, skin tones, placements, and long-term expectations for the piece.",
@@ -52,3 +62,7 @@ export const blogPosts: BlogPost[] = [
     ],
   },
 ];
+
+export function getFallbackBlogBySlug(slug: string) {
+  return blogPosts.find((post) => post.slug === slug) ?? null;
+}

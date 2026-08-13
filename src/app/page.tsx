@@ -3,7 +3,9 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { BookingForm } from "../components/BookingForm";
 import { JsonLd } from "../components/JsonLd";
-import { homeClosing, homeProcess, studioFeatures } from "../../content/home";
+import { homeClosing, homeProcess } from "../../content/home";
+import { placeholders } from "../../content/placeholders";
+import { studioFeatures, studioIntro } from "../../content/studio";
 import { site } from "../../content/site";
 import { workItems } from "../../content/work";
 import {
@@ -94,7 +96,7 @@ export default function HomePage() {
         >
           <div className="tattoo-artist-hero__media" aria-hidden="true">
             <Image
-              src="/images/hero-placeholder.svg"
+              src={placeholders.hero}
               alt=""
               fill
               priority
@@ -142,6 +144,15 @@ export default function HomePage() {
                   key={step.heading}
                   className={`story-block story-block--${step.align}`}
                 >
+                  <figure className="story-block__media">
+                    <Image
+                      src={step.image}
+                      alt={step.imageAlt}
+                      fill
+                      sizes="(max-width: 859px) 100vw, 42rem"
+                      unoptimized
+                    />
+                  </figure>
                   <h3 className="story-block__heading">
                     {underlineHeading(step.heading, step.underline)}
                   </h3>
@@ -173,10 +184,10 @@ export default function HomePage() {
               </p>
             </header>
 
-            <article className="artist-feature" aria-labelledby="artist-name">
+            <article className="artist-feature" aria-labelledby="artist-heading">
               <figure className="artist-feature__media">
                 <Image
-                  src="/images/about-placeholder.svg"
+                  src={placeholders.about}
                   alt={`Portrait of ${site.name}`}
                   fill
                   sizes="(max-width: 859px) 100vw, 42vw"
@@ -184,10 +195,6 @@ export default function HomePage() {
                 />
               </figure>
               <div className="artist-feature__copy">
-                <h3 id="artist-name">{site.name}</h3>
-                <p className="artist-feature__role">
-                  Fine line, blackwork &amp; illustrative tattooing
-                </p>
                 <p>
                   {site.name} focuses on custom work with clear composition,
                   refined line, and designs built to age well on the body.
@@ -223,14 +230,11 @@ export default function HomePage() {
             <header className="section-header section-header--center">
               <h2 id="studio-heading">The studio</h2>
               <div className="section-rule" aria-hidden="true" />
-              <p className="section-lede">
-                A considered space where artistry meets comfort — designed for
-                focus, hygiene, and creative expression.
-              </p>
+              <p className="section-lede">{studioIntro}</p>
             </header>
             <figure className="tattoo-studio-melbourne__feature-media">
               <Image
-                src="/images/hero-placeholder.svg"
+                src={placeholders.studio}
                 alt={`Studio space for ${site.name}`}
                 fill
                 sizes="100vw"
@@ -247,8 +251,11 @@ export default function HomePage() {
                 </li>
               ))}
             </ul>
-            <p className="section-cta">
-              <Link href="/booking" className="button-ghost button-ghost--dark">
+            <p className="section-cta cta-row">
+              <Link href="/the-studio" className="button-ghost button-ghost--dark">
+                About the studio
+              </Link>
+              <Link href="/booking" className="text-link">
                 Book a consultation
               </Link>
             </p>

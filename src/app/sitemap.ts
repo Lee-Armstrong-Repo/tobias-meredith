@@ -7,7 +7,7 @@ import { sanityClient } from "@/sanity/lib/client";
 import { blogPostSlugsQuery, workItemSlugsQuery } from "@/sanity/lib/queries";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const routes = ["", "/about", "/work", "/blog", "/booking"];
+  const routes = ["", "/about", "/the-studio", "/work", "/blog", "/booking"];
 
   const blogSlugs =
     hasSanityEnv && sanityClient

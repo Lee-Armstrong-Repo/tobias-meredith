@@ -1,16 +1,18 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import type { PortableTextBlock } from "sanity";
 import { JsonLd } from "@/components/JsonLd";
-import { blogPosts } from "../../../../content/blog";
+import { blogPosts, getFallbackBlogBySlug } from "../../../../content/blog";
+import { blogPlaceholder } from "../../../../content/placeholders";
 import { hasSanityEnv } from "@/sanity/env";
 import { sanityClient } from "@/sanity/lib/client";
 import {
   blogPostBySlugQuery,
   blogPostSlugsQuery,
 } from "@/sanity/lib/queries";
-import { buildPageGraph, blogPostingNode } from "@/lib/schema";
+import { absoluteUrl, buildPageGraph, blogPostingNode } from "@/lib/schema";
 
 type Params = Promise<{ slug: string }>;
 
@@ -23,6 +25,7 @@ type SanityPost = {
   publishedAt: string;
   category: string;
   readTime: string;
+  coverImageUrl?: string;
   body?: PortableTextBlock[];
 };
 
@@ -35,6 +38,9 @@ function formatDate(date: string) {
 }
 
 async function getPost(slug: string) {
+  const fallbackPost = getFallbackBlogBySlug(slug);
+  const fallbackIndex = blogPosts.findIndex((post) => post.slug === slug);
+
   if (sanityClient) {
     const cmsPost = await sanityClient.fetch<SanityPost | null>(
       blogPostBySlugQuery,
@@ -49,12 +55,16 @@ async function getPost(slug: string) {
         publishedAt: cmsPost.publishedAt,
         category: cmsPost.category,
         readTime: cmsPost.readTime,
+        image:
+          cmsPost.coverImageUrl ||
+          fallbackPost?.image ||
+          blogPlaceholder(Math.max(fallbackIndex, 0)),
+        imageAlt: fallbackPost?.imageAlt || cmsPost.title,
+        isPlaceholder: !cmsPost.coverImageUrl,
         body: cmsPost.body,
       };
     }
   }
-
-  const fallbackPost = blogPosts.find((post) => post.slug === slug);
 
   if (!fallbackPost) {
     return null;
@@ -67,6 +77,9 @@ async function getPost(slug: string) {
     publishedAt: fallbackPost.publishedAt,
     category: fallbackPost.category,
     readTime: fallbackPost.readTime,
+    image: fallbackPost.image,
+    imageAlt: fallbackPost.imageAlt,
+    isPlaceholder: fallbackPost.image.endsWith(".svg"),
     paragraphs: fallbackPost.body,
   };
 }
@@ -100,11 +113,13 @@ export async function generateMetadata(props: {
       url: `/blog/${post.slug}`,
       type: "article",
       publishedTime: post.publishedAt,
+      images: [{ url: post.image, alt: post.imageAlt }],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.excerpt,
+      images: [post.image],
     },
   };
 }
@@ -128,6 +143,7 @@ export default async function BlogPostPage(props: { params: Params }) {
             name: post.title,
             description: post.excerpt,
             mainEntityId: articleId,
+            primaryImage: absoluteUrl(post.image),
           },
           [
             { name: "Home", path: "/" },
@@ -137,6 +153,17 @@ export default async function BlogPostPage(props: { params: Params }) {
           [articleNode],
         )}
       />
+
+      <figure className="article__cover">
+        <Image
+          src={post.image}
+          alt={post.imageAlt}
+          fill
+          priority
+          sizes="100vw"
+          unoptimized={post.isPlaceholder}
+        />
+      </figure>
 
       <header className="page-intro article__intro">
         <p className="blog-card__eyebrow">

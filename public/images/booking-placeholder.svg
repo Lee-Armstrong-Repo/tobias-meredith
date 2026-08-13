@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 1200 900" role="img" aria-label="Consultation placeholder">
+  <defs>
+    <linearGradient id="booking" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1c1917"/>
+      <stop offset="100%" stop-color="#2a2622"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="url(#booking)"/>
+  <text x="600" y="430" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="Georgia, serif" font-size="34" letter-spacing="6">CONSULTATION</text>
+  <text x="600" y="490" text-anchor="middle" fill="rgba(255,255,255,0.25)" font-family="Helvetica, Arial, sans-serif" font-size="18" letter-spacing="4">BOOKING</text>
+</svg>

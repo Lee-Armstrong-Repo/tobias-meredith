@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000" role="img" aria-label="Tattoo session placeholder">
+  <rect width="1600" height="1000" fill="#100f0d"/>
+  <rect x="200" y="160" width="1200" height="680" fill="#1e1a17"/>
+  <text x="800" y="510" text-anchor="middle" fill="rgba(255,255,255,0.38)" font-family="Georgia, serif" font-size="32" letter-spacing="6">SESSION</text>
+</svg>

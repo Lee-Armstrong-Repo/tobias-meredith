@@ -1,6 +1,8 @@
+import Image from "next/image";
 import type { Metadata } from "next";
 import { BookingForm } from "../../components/BookingForm";
 import { JsonLd } from "../../components/JsonLd";
+import { placeholders } from "../../../content/placeholders";
 import { site } from "../../../content/site";
 import { buildPageGraph } from "../../lib/schema";
 
@@ -50,17 +52,29 @@ export default function BookingPage() {
           <p>{site.bookingNote}</p>
         </header>
 
-        <div className="booking-panel">
-          <ul className="booking-notes">
-            <li>Include your idea, placement, and rough size</li>
-            <li>Mention any tattoo style preference if you have one</li>
-            <li>
-              Or email{" "}
-              <a href={`mailto:${site.email}`}>{site.email}</a> directly
-            </li>
-          </ul>
+        <div className="booking-layout">
+          <figure className="booking-layout__media">
+            <Image
+              src={placeholders.booking}
+              alt="Consultation booking placeholder"
+              fill
+              sizes="(max-width: 859px) 100vw, 42vw"
+              unoptimized
+            />
+          </figure>
 
-          <BookingForm />
+          <div className="booking-panel">
+            <ul className="booking-notes">
+              <li>Include your idea, placement, and rough size</li>
+              <li>Mention any tattoo style preference if you have one</li>
+              <li>
+                Or email{" "}
+                <a href={`mailto:${site.email}`}>{site.email}</a> directly
+              </li>
+            </ul>
+
+            <BookingForm />
+          </div>
         </div>
       </div>
     </>

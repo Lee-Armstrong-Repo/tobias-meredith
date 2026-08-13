@@ -1,4 +1,5 @@
 import { site } from "../../content/site";
+import { placeholders } from "../../content/placeholders";
 import { tattooStyles } from "../../content/styles";
 
 export type JsonLdNode = Record<string, unknown>;
@@ -38,7 +39,7 @@ export function personNode(): JsonLdNode {
     description: site.description,
     url: absoluteUrl("/about"),
     email: site.email,
-    image: absoluteUrl("/images/about-placeholder.svg"),
+    image: absoluteUrl(placeholders.about),
     sameAs: [site.instagram],
     address: {
       "@type": "PostalAddress",
@@ -58,7 +59,7 @@ export function professionalServiceNode(): JsonLdNode {
     description: site.description,
     url: site.url,
     email: site.email,
-    image: absoluteUrl("/images/hero-placeholder.svg"),
+    image: absoluteUrl(placeholders.studio),
     areaServed: {
       "@type": "City",
       name: site.city,

@@ -25,7 +25,7 @@ export const site = {
 
 export const nav = [
   { href: "/about", label: "About" },
-  { href: "/#studio", label: "Studio" },
+  { href: "/the-studio", label: "Studio" },
   { href: "/work", label: "Work" },
   { href: "/blog", label: "Blog" },
   { href: "/booking", label: "Contact" },
@@ -33,7 +33,7 @@ export const nav = [
 
 export const footerInfo = [
   { href: "/about", label: "About" },
-  { href: "/#studio", label: "Studio" },
+  { href: "/the-studio", label: "Studio" },
   { href: "/work", label: "Work" },
   { href: "/blog", label: "Blog" },
   { href: "/booking", label: "Contact" },

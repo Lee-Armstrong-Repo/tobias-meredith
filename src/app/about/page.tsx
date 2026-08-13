@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "../../components/JsonLd";
 import { site } from "../../../content/site";
+import { placeholders } from "../../../content/placeholders";
 import { buildPageGraph, schemaIds } from "../../lib/schema";
 
 const pageTitle = `About ${site.name}`;
@@ -60,7 +61,7 @@ export default function AboutPage() {
         <div className="about-grid">
           <figure className="about-grid__media">
             <Image
-              src="/images/about-placeholder.svg"
+              src={placeholders.about}
               alt={`Portrait of ${site.name}`}
               fill
               sizes="(max-width: 859px) 100vw, 45vw"
