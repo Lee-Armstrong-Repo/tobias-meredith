@@ -25,7 +25,6 @@ export const site = {
 
 export const nav = [
   { href: "/about", label: "About" },
-  { href: "/#artist", label: "Artist" },
   { href: "/#studio", label: "Studio" },
   { href: "/work", label: "Work" },
   { href: "/blog", label: "Blog" },
@@ -34,7 +33,6 @@ export const nav = [
 
 export const footerInfo = [
   { href: "/about", label: "About" },
-  { href: "/#artist", label: "Artist" },
   { href: "/#studio", label: "Studio" },
   { href: "/work", label: "Work" },
   { href: "/blog", label: "Blog" },
