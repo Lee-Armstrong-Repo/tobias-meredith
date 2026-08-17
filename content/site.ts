@@ -2,9 +2,9 @@ export const site = {
   name: "Tobias Meredith",
   shortName: "TOBIAS MEREDITH",
   tagline: "Tattoo Artist",
-  headline: "Custom tattoos, considered process",
+  headline: "Without the bullshit.",
   description:
-    "Tobias Meredith is a tattoo artist in Melbourne creating custom fine line, blackwork, and illustrative work through a careful consultation-led process.",
+    "Tobias Meredith is a tattoo artist in Melbourne creating custom black and grey tattoos — realism, Chicano, and timeless work. By appointment only.",
   url: "https://tobiasmeredith.com",
   locale: "en_AU",
   city: "Melbourne",

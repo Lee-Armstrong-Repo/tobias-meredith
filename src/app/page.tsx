@@ -1,11 +1,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { BookingForm } from "../components/BookingForm";
 import { JsonLd } from "../components/JsonLd";
-import { homeClosing, homeProcess } from "../../content/home";
+import {
+  homeAbout,
+  homeBooking,
+  homeHero,
+  homeMarqueeItems,
+  homeProcess,
+  homeStudio,
+  homeWork,
+} from "../../content/home";
 import { placeholders } from "../../content/placeholders";
-import { studioFeatures, studioIntro } from "../../content/studio";
 import { site } from "../../content/site";
 import { workItems } from "../../content/work";
 import {
@@ -17,6 +23,8 @@ import {
 
 const pageTitle = `${site.name} | Custom Tattoo Artist in Melbourne`;
 const pageDescription = site.description;
+const featuredWork = workItems.slice(0, 4);
+const marqueeText = `${homeMarqueeItems.join(" — ")} — `;
 
 export const metadata: Metadata = {
   title: {
@@ -46,19 +54,13 @@ export const metadata: Metadata = {
   },
 };
 
-function underlineHeading(heading: string, underline: string) {
-  const index = heading.indexOf(underline);
-  if (index === -1) {
-    return heading;
-  }
-
-  return (
-    <>
-      {heading.slice(0, index)}
-      <span className="story-underline">{underline}</span>
-      {heading.slice(index + underline.length)}
-    </>
-  );
+function lines(text: string) {
+  return text.split("\n").map((line, index) => (
+    <span key={line}>
+      {index > 0 ? <br /> : null}
+      {line}
+    </span>
+  ));
 }
 
 export default function HomePage() {
@@ -78,7 +80,7 @@ export default function HomePage() {
             itemListNode(
               `${site.url}/#featured-work`,
               "Selected work",
-              workItems.map((item) => ({
+              featuredWork.map((item) => ({
                 url: absoluteUrl(`/work/${item.slug}`),
                 name: item.title,
               })),
@@ -88,13 +90,9 @@ export default function HomePage() {
         )}
       />
 
-      <article aria-labelledby="home-heading">
-        <header
-          id="home"
-          className="tattoo-artist-hero"
-          aria-labelledby="home-heading"
-        >
-          <div className="tattoo-artist-hero__media" aria-hidden="true">
+      <article className="home" aria-labelledby="home-heading">
+        <header id="home" className="home-hero">
+          <div className="home-hero__media" aria-hidden="true">
             <Image
               src={placeholders.hero}
               alt=""
@@ -104,159 +102,115 @@ export default function HomePage() {
               unoptimized
             />
           </div>
-          <div className="tattoo-artist-hero__overlay" aria-hidden="true" />
-          <div className="tattoo-artist-hero__content">
-            <h1 id="home-heading" className="tattoo-artist-hero__title">
-              {site.shortName}
+          <div className="home-hero__overlay" aria-hidden="true" />
+          <div className="home-hero__body">
+            <h1 id="home-heading" className="home-hero__name">
+              Tobias
+              <br />
+              Meredith
             </h1>
-            <p className="tattoo-artist-hero__subtitle">{site.headline}</p>
-            <p className="tattoo-artist-hero__intro">
-              The moment you begin a consultation with {site.name}, you&apos;ll
-              understand why the process feels different — custom fine line,
-              blackwork, and illustrative tattoos shaped around your story.
-            </p>
-            <p className="tattoo-artist-hero__actions">
-              <Link href="/work" className="button-ghost">
-                View portfolio
+            <p className="home-kicker">{homeHero.kicker}</p>
+            <p className="home-hero__headline">{lines(homeHero.headline)}</p>
+            <p className="home-hero__copy">{lines(homeHero.copy)}</p>
+            <p className="home-hero__actions">
+              <Link href="/booking" className="button">
+                Book a consult →
+              </Link>
+              <Link href="#selected-work" className="text-link">
+                View work
               </Link>
             </p>
           </div>
+          <p className="home-hero__scroll">
+            <span>Scroll to explore</span>
+            <span aria-hidden="true">↓</span>
+          </p>
         </header>
+
+        <div className="home-marquee" aria-hidden="true">
+          <div className="home-marquee__track">
+            <span>{marqueeText}</span>
+            <span>{marqueeText}</span>
+          </div>
+        </div>
 
         <section
           id="process"
-          className="tattoo-process-melbourne"
+          className="home-section"
           aria-labelledby="process-heading"
         >
-          <div className="section-shell">
-            <header className="section-header section-header--center section-header--process">
-              <h2 id="process-heading">The process</h2>
-              <div className="section-rule" aria-hidden="true" />
-              <p className="section-lede">
-                Every piece begins with conversation, careful design, and a pace
-                that protects the work over time.
-              </p>
-            </header>
-
-            <ol className="story-list">
-              {homeProcess.map((step) => (
-                <li
-                  key={step.heading}
-                  className={`story-block story-block--${step.align}`}
-                >
-                  <figure className="story-block__media">
-                    <Image
-                      src={step.image}
-                      alt={step.imageAlt}
-                      fill
-                      sizes="(max-width: 859px) 100vw, 42rem"
-                      unoptimized
-                    />
-                  </figure>
-                  <h3 className="story-block__heading">
-                    {underlineHeading(step.heading, step.underline)}
-                  </h3>
-                  <p className="story-block__body">{step.body}</p>
-                </li>
-              ))}
-            </ol>
-
-            <aside className="story-closing" aria-label="Closing note">
-              {homeClosing.lines.map((line) => (
-                <p key={line}>{line}</p>
-              ))}
-            </aside>
-          </div>
+          <p className="home-kicker">{homeProcess.index}</p>
+          <h2 id="process-heading" className="home-display">
+            {lines(homeProcess.heading)}
+          </h2>
+          <ol className="process-list">
+            {homeProcess.steps.map((step) => (
+              <li key={step.number}>
+                <details className="process-row">
+                  <summary>
+                    <span>
+                      {step.number} {step.title}
+                    </span>
+                    <span aria-hidden="true">+</span>
+                  </summary>
+                  <p>{step.body}</p>
+                </details>
+              </li>
+            ))}
+          </ol>
         </section>
 
-        <section
-          id="artist"
-          className="melbourne-tattoo-artist"
-          aria-labelledby="artist-heading"
-        >
-          <div className="section-shell">
-            <header className="section-header section-header--center">
-              <h2 id="artist-heading">About {site.name}</h2>
-              <div className="section-rule" aria-hidden="true" />
-              <p className="section-lede">
-                Custom fine line, blackwork, and illustrative work through a
-                careful, consultation-led process.
+        <section id="artist" aria-labelledby="artist-heading">
+          <figure className="home-photo">
+            <Image
+              src={placeholders.about}
+              alt={`Portrait of ${site.name}`}
+              fill
+              sizes="100vw"
+              unoptimized
+            />
+          </figure>
+          <div className="home-section">
+            <p className="home-kicker">{homeAbout.index}</p>
+            <h2 id="artist-heading" className="home-display">
+              {lines(homeAbout.heading)}
+            </h2>
+            {homeAbout.paragraphs.map((paragraph) => (
+              <p key={paragraph} className="home-copy">
+                {paragraph}
               </p>
-            </header>
-
-            <article className="artist-feature" aria-labelledby="artist-heading">
-              <figure className="artist-feature__media">
-                <Image
-                  src={placeholders.about}
-                  alt={`Portrait of ${site.name}`}
-                  fill
-                  sizes="(max-width: 859px) 100vw, 42vw"
-                  unoptimized
-                />
-              </figure>
-              <div className="artist-feature__copy">
-                <p>
-                  {site.name} focuses on custom work with clear composition,
-                  refined line, and designs built to age well on the body.
-                </p>
-                <p>
-                  Each piece starts with your idea, then moves through careful
-                  sketching, placement planning, and a calm professional session.
-                </p>
-                <p>
-                  Tobias builds every tattoo around the client&apos;s concept —
-                  refining composition, scale, and placement before any ink goes
-                  down.
-                </p>
-                <p className="cta-row">
-                  <Link href="/about" className="button-ghost button-ghost--dark">
-                    Read more
-                  </Link>
-                  <Link href="/booking" className="text-link">
-                    Request availability
-                  </Link>
-                </p>
-              </div>
-            </article>
+            ))}
+            <p className="home-section__cta">
+              <Link href="/about" className="text-link">
+                More about Tobias →
+              </Link>
+            </p>
           </div>
         </section>
 
         <section
           id="studio"
-          className="tattoo-studio-melbourne"
+          className="home-band home-band--cream"
           aria-labelledby="studio-heading"
         >
-          <div className="section-shell">
-            <header className="section-header section-header--center">
-              <h2 id="studio-heading">The studio</h2>
-              <div className="section-rule" aria-hidden="true" />
-              <p className="section-lede">{studioIntro}</p>
-            </header>
-            <figure className="tattoo-studio-melbourne__feature-media">
-              <Image
-                src={placeholders.studio}
-                alt={`Studio space for ${site.name}`}
-                fill
-                sizes="100vw"
-                unoptimized
-              />
-            </figure>
-            <ul className="tattoo-studio-melbourne__features">
-              {studioFeatures.map((feature) => (
-                <li key={feature.title}>
-                  <article aria-labelledby={`studio-${feature.title}`}>
-                    <h3 id={`studio-${feature.title}`}>{feature.title}</h3>
-                    <p>{feature.description}</p>
-                  </article>
-                </li>
-              ))}
-            </ul>
-            <p className="section-cta cta-row">
-              <Link href="/the-studio" className="button-ghost button-ghost--dark">
-                About the studio
-              </Link>
-              <Link href="/booking" className="text-link">
-                Book a consultation
+          <figure className="home-photo home-photo--studio">
+            <Image
+              src={placeholders.studio}
+              alt={`Studio space for ${site.name}`}
+              fill
+              sizes="100vw"
+              unoptimized
+            />
+          </figure>
+          <div className="home-section">
+            <p className="home-kicker">{homeStudio.index}</p>
+            <h2 id="studio-heading" className="home-display">
+              {lines(homeStudio.heading)}
+            </h2>
+            <p className="home-copy">{lines(homeStudio.copy)}</p>
+            <p className="home-section__cta">
+              <Link href="/the-studio" className="text-link">
+                View the studio →
               </Link>
             </p>
           </div>
@@ -264,83 +218,58 @@ export default function HomePage() {
 
         <section
           id="selected-work"
-          className="tattoo-portfolio-melbourne"
+          className="home-section"
           aria-labelledby="work-heading"
         >
-          <div className="section-shell">
-            <header className="section-header section-header--center">
-              <h2 id="work-heading">Selected work</h2>
-              <div className="section-rule" aria-hidden="true" />
-              <p className="section-lede">
-                A selection of custom pieces spanning fine line, blackwork, and
-                illustrative work.
-              </p>
-            </header>
-            <ul className="tattoo-portfolio-melbourne__grid">
-              {workItems.map((item) => (
-                <li key={item.id}>
-                  <article
-                    className="tattoo-portfolio-card"
-                    aria-labelledby={`work-${item.slug}`}
-                  >
-                    <Link
-                      href={`/work/${item.slug}`}
-                      className="tattoo-portfolio-card__link"
-                    >
-                      <figure>
-                        <div className="tattoo-portfolio-card__media">
-                          <Image
-                            src={item.src}
-                            alt={item.alt}
-                            fill
-                            sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
-                            unoptimized
-                          />
-                        </div>
-                        <figcaption>
-                          <p className="tattoo-portfolio-card__category">
-                            {item.category}
-                          </p>
-                          <h3
-                            id={`work-${item.slug}`}
-                            className="tattoo-portfolio-card__title"
-                          >
-                            {item.title}
-                          </h3>
-                        </figcaption>
-                      </figure>
-                    </Link>
-                  </article>
-                </li>
-              ))}
-            </ul>
-            <p className="section-cta">
-              <Link href="/work" className="button-ghost button-ghost--dark">
-                View full gallery
-              </Link>
-            </p>
-          </div>
+          <p className="home-kicker">{homeWork.index}</p>
+          <h2 id="work-heading" className="home-display">
+            {lines(homeWork.heading)}
+          </h2>
+          <p className="home-kicker home-kicker--muted">{homeWork.kicker}</p>
+          <ul className="home-gallery">
+            {featuredWork.map((item) => (
+              <li key={item.id}>
+                <Link href={`/work/${item.slug}`} className="home-gallery__link">
+                  <Image
+                    src={item.src}
+                    alt={item.alt}
+                    fill
+                    sizes="(max-width: 640px) 50vw, 25vw"
+                    unoptimized
+                  />
+                  <span className="sr-only">{item.title}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="home-section__cta">
+            <Link href="/work" className="text-link">
+              View all work →
+            </Link>
+          </p>
         </section>
 
-        <section
-          id="contact"
-          className="tattoo-booking-melbourne"
-          aria-labelledby="contact-heading"
-        >
-          <div className="section-shell tattoo-booking-melbourne__grid">
-            <header className="section-header">
-              <h2 id="contact-heading">Contact</h2>
-              <div
-                className="section-rule section-rule--left"
-                aria-hidden="true"
-              />
-              <p className="section-lede">{site.bookingNote}</p>
-              <p className="tattoo-booking-melbourne__email">
-                Prefer email?{" "}
-                <a href={`mailto:${site.email}`}>{site.email}</a>
-              </p>
-            </header>
-            <BookingForm />
+        <section id="contact" className="home-booking" aria-labelledby="contact-heading">
+          <div className="home-booking__media" aria-hidden="true">
+            <Image
+              src={placeholders.booking}
+              alt=""
+              fill
+              sizes="100vw"
+              unoptimized
+            />
+          </div>
+          <div className="home-booking__inner">
+            <p className="home-kicker">{homeBooking.index}</p>
+            <h2 id="contact-heading" className="home-display">
+              {lines(homeBooking.heading)}
+            </h2>
+            <p className="home-copy">{homeBooking.copy}</p>
+            <p className="home-section__cta">
+              <Link href="/booking" className="button">
+                Start your booking →
+              </Link>
+            </p>
           </div>
         </section>
       </article>

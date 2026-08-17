@@ -1,21 +1,21 @@
 import type { Metadata, Viewport } from "next";
-import { Cormorant_Garamond, Poppins } from "next/font/google";
+import { Anton, IBM_Plex_Mono } from "next/font/google";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { site } from "../../content/site";
 import "./globals.css";
 
-const poppins = Poppins({
+const plexMono = IBM_Plex_Mono({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["400", "500"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const cormorant = Cormorant_Garamond({
+const anton = Anton({
   subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-display",
+  weight: "400",
+  variable: "--font-condensed",
   display: "swap",
 });
 
@@ -69,7 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en-AU"
-      className={`h-full ${poppins.variable} ${cormorant.variable}`}
+      className={`h-full ${plexMono.variable} ${anton.variable}`}
     >
       <body className="site-shell">
         <a className="skip-link" href="#main-content">

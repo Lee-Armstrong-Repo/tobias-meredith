@@ -2,22 +2,24 @@
 
 :root {
   color-scheme: dark;
-  --bg: #000000;
-  --bg-elevated: #0a0a0a;
+  --bg: #080808;
+  --bg-elevated: #0c0c0c;
   --bg-soft: #111111;
-  --ink: #ffffff;
-  --ink-soft: #c8c8c8;
-  --muted: #8a8a8a;
-  --line: rgba(255, 255, 255, 0.14);
-  --accent: #ffffff;
-  --accent-ink: #000000;
-  --header-bg: #ffffff;
-  --header-ink: #111111;
-  --footer-bg: #050505;
-  --media-bg: #161616;
-  --header-h: 4.5rem;
-  --font: var(--font-sans), "Poppins", Helvetica, Arial, sans-serif;
-  --font-logo: var(--font-display), "Cormorant Garamond", Georgia, serif;
+  --ink: #f0ece4;
+  --ink-soft: #d0cbc2;
+  --muted: #b9b4aa;
+  --line: #343434;
+  --cream: #eee8dd;
+  --accent: var(--cream);
+  --accent-ink: #080808;
+  --header-bg: #080808;
+  --header-ink: #f0ece4;
+  --footer-bg: #080808;
+  --media-bg: #101010;
+  --header-h: 4.25rem;
+  --font: var(--font-sans), "IBM Plex Mono", "Courier New", monospace;
+  --font-logo: var(--font-sans), "IBM Plex Mono", "Courier New", monospace;
+  --font-display: var(--font-condensed), Anton, Impact, "Arial Narrow", sans-serif;
   --radius: 0;
   --max: 1180px;
 }
@@ -43,8 +45,8 @@ body {
   color: var(--ink);
   font-family: var(--font);
   font-weight: 400;
-  letter-spacing: 0.01em;
-  line-height: 1.6;
+  letter-spacing: 0;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -111,17 +113,24 @@ ul {
   flex: 1;
 }
 
-/* Header — Omnia white bar */
+/* Header */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 40;
   background: var(--header-bg);
   color: var(--header-ink);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: 1px solid transparent;
 }
 
-.site-header.is-menu-open {
+.site-header--overlay {
+  position: absolute;
+  inset: 0 0 auto;
+  background: transparent;
+}
+
+.site-header.is-menu-open,
+.site-header--overlay.is-menu-open {
   background: var(--header-bg);
 }
 
@@ -149,10 +158,10 @@ ul {
 }
 
 .site-logo {
-  font-family: var(--font-logo);
-  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-family: var(--font);
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--header-ink);
@@ -216,19 +225,18 @@ ul {
 
 .site-nav__link {
   display: block;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  font-size: 0.82rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   color: inherit;
   padding: 0.9rem 0;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid var(--line);
 }
 
 .site-nav.is-open .site-nav__link {
   font-size: 1.05rem;
-  letter-spacing: 0.12em;
 }
 
 /* Buttons */
@@ -242,9 +250,9 @@ ul {
   padding: 0.75rem 1.6rem;
   border: 1px solid transparent;
   border-radius: var(--radius);
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
@@ -261,8 +269,8 @@ ul {
 }
 
 .button:hover {
-  background: #e8e8e8;
-  border-color: #e8e8e8;
+  background: #e4ddd0;
+  border-color: #e4ddd0;
 }
 
 .button-secondary {
@@ -296,10 +304,18 @@ ul {
 }
 
 .text-link {
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid #666;
+  padding-bottom: 3px;
   text-underline-offset: 0.22em;
+}
+
+.home-band--cream .text-link {
+  color: #090909;
+  border-bottom-color: #090909;
 }
 
 .cta-row {
@@ -324,20 +340,15 @@ ul {
 }
 
 .section-header h2,
-.artist-feature__copy h3,
 .page-intro h1,
 .page h1 {
   margin: 0 0 0.85rem;
-  font-size: clamp(1.75rem, 4vw, 2.75rem);
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  line-height: 1.15;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 8vw, 4.2rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.9;
   text-transform: uppercase;
-}
-
-.artist-feature__copy h3 {
-  font-size: clamp(1.4rem, 3vw, 1.85rem);
-  letter-spacing: 0.08em;
 }
 
 .section-rule {
@@ -514,368 +525,304 @@ ul {
   }
 }
 
-/* Hero — Omnia centered full bleed */
-.tattoo-artist-hero {
+/* Homepage — mobile mockup */
+.home-hero {
   position: relative;
-  min-height: min(92vh, 920px);
-  display: grid;
-  place-items: center;
+  min-height: 100svh;
+  padding: 5.5rem 1.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   overflow: hidden;
-  background: #000;
-  text-align: center;
+  background: #090909;
 }
 
-.tattoo-artist-hero__media,
-.tattoo-artist-hero__overlay {
+.home-hero__media,
+.home-hero__overlay {
   position: absolute;
   inset: 0;
 }
 
-.tattoo-artist-hero__media img {
+.home-hero__media img {
   object-fit: cover;
-  opacity: 0.5;
+  object-position: 78% 26%;
+  opacity: 0.72;
+  filter: grayscale(1);
 }
 
-.tattoo-artist-hero__overlay {
+.home-hero__overlay {
   background:
-    linear-gradient(
-      180deg,
-      rgba(0, 0, 0, 0.35) 0%,
-      rgba(0, 0, 0, 0.55) 55%,
-      rgba(0, 0, 0, 0.85) 100%
-    );
+    linear-gradient(90deg, rgba(8, 8, 8, 0.94) 0%, rgba(8, 8, 8, 0.58) 44%, rgba(8, 8, 8, 0.05) 78%),
+    linear-gradient(0deg, #080808 0%, transparent 35%);
 }
 
-.tattoo-artist-hero__content {
+.home-hero__body,
+.home-hero__scroll {
   position: relative;
-  z-index: 1;
-  width: min(52rem, calc(100% - 2.5rem));
-  margin: 0 auto;
-  padding: 6rem 0 5rem;
+  z-index: 2;
 }
 
-.tattoo-artist-hero__title {
+.home-hero__name {
   margin: 0;
-  font-size: clamp(2.4rem, 8vw, 5rem);
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  line-height: 1.05;
+  font-family: var(--font-display);
+  font-size: clamp(4.6rem, 20.5vw, 7.5rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.78;
   text-transform: uppercase;
 }
 
-.tattoo-artist-hero__subtitle {
+.home-kicker {
+  margin: 2.1rem 0 0;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.home-kicker--muted {
+  margin-top: 1rem;
+  color: #aaa;
+  font-size: 0.7rem;
+}
+
+.home-hero__headline,
+.home-display {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 11vw, 4.6rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.home-hero__copy,
+.home-copy {
   margin: 1.15rem 0 0;
-  font-size: clamp(1.05rem, 2.2vw, 1.45rem);
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: rgba(255, 255, 255, 0.95);
+  max-width: 22rem;
+  font-size: 0.88rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
 }
 
-.tattoo-artist-hero__intro {
-  margin: 1rem auto 0;
-  max-width: 34rem;
-  font-weight: 300;
-  color: rgba(255, 255, 255, 0.72);
-}
-
-.tattoo-artist-hero__actions {
+.home-hero__actions {
   display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin: 1.35rem 0 0;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.85rem;
-  margin-top: 2rem;
 }
 
-/* Story narrative — Omnia staggered */
-.tattoo-process-melbourne {
-  padding: 6.5rem 0 4rem;
-  background: #000;
+.home-hero__scroll {
+  display: flex;
+  justify-content: space-between;
+  margin: 2.5rem 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.story-list {
-  list-style: none;
-  margin: 0;
+.home-marquee {
+  overflow: hidden;
+  white-space: nowrap;
+  background: var(--cream);
+  color: #090909;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+
+.home-marquee__track {
+  display: inline-flex;
+  min-width: 200%;
+  animation: home-marquee 16s linear infinite;
+}
+
+.home-marquee__track span {
+  padding: 0.5rem 0;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+}
+
+@keyframes home-marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.home-section {
+  padding: 2.15rem 1.25rem 2.4rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.home-section .home-kicker {
+  margin-top: 0;
+}
+
+.home-section .home-display {
+  margin-top: 0.65rem;
+}
+
+.home-section__cta {
+  margin: 1.35rem 0 0;
+}
+
+.process-list {
+  margin: 1.5rem 0 0;
   padding: 0;
+  list-style: none;
 }
 
-.story-block {
-  max-width: 42rem;
-  margin-bottom: 5.5rem;
+.process-row {
+  border-top: 1px solid var(--line);
 }
 
-.story-block__media {
-  position: relative;
-  aspect-ratio: 16 / 10;
-  margin: 0 0 1.75rem;
-  background: var(--media-bg);
-  overflow: hidden;
+.process-list li:last-child .process-row {
+  border-bottom: 1px solid var(--line);
 }
 
-.story-block__media img {
-  object-fit: cover;
-  opacity: 0.82;
-  filter: grayscale(0.35);
+.process-row summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.95rem 0;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  list-style: none;
 }
 
-.story-block--right .story-block__media {
-  margin-left: auto;
+.process-row summary span:last-child {
+  transition: transform 160ms ease;
 }
 
-.story-block--left .story-block__media {
-  margin-right: auto;
+.process-row[open] summary span:last-child {
+  transform: rotate(45deg);
 }
 
-.story-block--left {
-  margin-right: auto;
-  text-align: left;
-}
-
-.story-block--right {
-  margin-left: auto;
-  text-align: right;
-}
-
-.story-block__heading {
+.process-row p {
   margin: 0 0 1rem;
-  font-size: clamp(1.65rem, 4.2vw, 2.85rem);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-  text-transform: none;
-}
-
-.story-list .story-block__heading {
-  letter-spacing: -0.01em;
-  text-transform: none;
-}
-
-.story-underline {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.85);
-  padding-bottom: 0.05em;
-}
-
-.story-block__body {
-  margin: 0;
-  font-size: 1.05rem;
-  font-weight: 300;
+  max-width: 34rem;
+  font-size: 0.82rem;
   color: var(--ink-soft);
 }
 
-.story-block--right .story-block__body {
-  margin-left: auto;
-}
-
-.story-closing {
-  max-width: 28rem;
-  margin: 2rem 0 0 auto;
-  text-align: right;
-  padding-top: 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-.story-closing p {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: 300;
-  color: var(--ink-soft);
-  line-height: 1.7;
-}
-
-.story-closing p + p {
-  margin-top: 0.15rem;
-}
-
-/* Artist */
-.melbourne-tattoo-artist {
-  padding: 5.5rem 0;
-  background: var(--bg);
-}
-
-.artist-feature {
-  display: grid;
-  gap: 2rem;
-  max-width: 56rem;
-  margin-inline: auto;
-}
-
-.artist-feature__media {
+.home-photo {
   position: relative;
+  height: 24.4rem;
   margin: 0;
-  min-height: 28rem;
   background: var(--media-bg);
   overflow: hidden;
 }
 
-.artist-feature__media img {
+.home-photo img {
   object-fit: cover;
   filter: grayscale(1);
 }
 
-.artist-feature__copy h3 {
-  margin: 0 0 0.5rem;
+.home-photo--studio {
+  height: 20.6rem;
 }
 
-.artist-feature__role {
-  margin: 0 0 1.25rem !important;
-  font-size: 0.78rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--muted) !important;
+.home-band--cream {
+  background: var(--cream);
+  color: #090909;
 }
 
-.artist-feature__copy p {
-  margin: 0 0 1rem;
-  font-weight: 300;
+.home-band--cream .home-copy,
+.home-band--cream .home-kicker {
+  color: #2a2a2a;
 }
 
-.artist-feature__copy .cta-row {
-  margin-top: 1.75rem;
-}
-
-/* Styles */
-.tattoo-styles-melbourne {
-  padding: 5.5rem 0;
-  background: var(--bg-elevated);
-}
-
-.tattoo-styles-melbourne__grid {
+.home-gallery {
   display: grid;
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2px;
+  margin: 1.5rem 0 0;
 }
 
-.tattoo-style-card {
-  background: var(--bg);
-  padding: 1.6rem 1.35rem 1.75rem;
-}
-
-.tattoo-style-card h3 {
-  margin: 0 0 0.65rem;
-  font-size: 1.05rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.tattoo-style-card p {
-  margin: 0;
-  font-size: 0.92rem;
-  font-weight: 300;
-}
-
-/* Studio */
-.tattoo-studio-melbourne {
-  padding: 5.5rem 0;
-  background: var(--bg);
-}
-
-.tattoo-studio-melbourne__feature-media {
+.home-gallery__link {
   position: relative;
-  min-height: 18rem;
-  margin: 0 0 2rem;
-  background: var(--media-bg);
-  overflow: hidden;
-}
-
-.tattoo-studio-melbourne__feature-media img {
-  object-fit: cover;
-  opacity: 0.8;
-  filter: grayscale(0.4);
-}
-
-.tattoo-studio-melbourne__features {
-  display: grid;
-  gap: 1.75rem;
-}
-
-.tattoo-studio-melbourne__features h3 {
-  margin: 0 0 0.5rem;
-  font-size: 0.95rem;
-  font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.tattoo-studio-melbourne__features p {
-  margin: 0;
-  font-size: 0.92rem;
-  font-weight: 300;
-}
-
-/* Portfolio */
-.tattoo-portfolio-melbourne {
-  padding: 5.5rem 0;
-  background: var(--bg-elevated);
-}
-
-.tattoo-portfolio-melbourne__grid {
-  display: grid;
-  gap: 1rem;
-}
-
-.tattoo-portfolio-card__link {
-  text-decoration: none;
   display: block;
-}
-
-.tattoo-portfolio-card__media {
-  position: relative;
-  aspect-ratio: 4 / 5;
+  height: 13.75rem;
   background: var(--media-bg);
   overflow: hidden;
 }
 
-.tattoo-portfolio-card__media img {
+.home-gallery__link img {
   object-fit: cover;
-  transition: transform 420ms ease;
-  filter: grayscale(0.15);
+  filter: grayscale(0.2);
 }
 
-.tattoo-portfolio-card__link:hover .tattoo-portfolio-card__media img {
-  transform: scale(1.03);
-}
-
-.tattoo-portfolio-card figcaption {
+.home-booking {
+  position: relative;
+  min-height: 27.5rem;
   display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  padding: 0.85rem 0 0;
+  align-items: flex-end;
+  overflow: hidden;
 }
 
-.tattoo-portfolio-card__category {
-  margin: 0;
-  font-size: 0.65rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--muted);
+.home-booking__media {
+  position: absolute;
+  inset: 0;
 }
 
-.tattoo-portfolio-card__title {
-  margin: 0;
-  font-size: 0.95rem;
-  font-weight: 400;
-  letter-spacing: 0;
-  line-height: 1.35;
-  text-transform: none;
+.home-booking__media img {
+  object-fit: cover;
+  filter: grayscale(1);
 }
 
-/* Booking / contact */
-.tattoo-booking-melbourne {
-  padding: 5.5rem 0 6rem;
-  background: var(--bg);
-  border-top: 1px solid var(--line);
+.home-booking__media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, #080808 0%, rgba(8, 8, 8, 0.72) 45%, rgba(8, 8, 8, 0.1) 100%);
 }
 
-.tattoo-booking-melbourne__grid {
-  display: grid;
-  gap: 2.5rem;
+.home-booking__inner {
+  position: relative;
+  z-index: 2;
+  padding: 2.15rem 1.25rem 2.4rem;
 }
 
-.tattoo-booking-melbourne__email {
-  margin: 1.15rem 0 0;
-  color: var(--ink-soft);
-  font-weight: 300;
+.home-booking .home-kicker {
+  margin-top: 0;
+}
+
+@media (min-width: 860px) {
+  .home-hero,
+  .home-section,
+  .home-booking__inner {
+    padding-left: max(1.5rem, calc((100% - var(--max)) / 2));
+    padding-right: max(1.5rem, calc((100% - var(--max)) / 2));
+  }
+
+  .home-hero {
+    padding-top: 6.5rem;
+  }
+
+  .home-hero__name {
+    font-size: 7.5rem;
+  }
+
+  .home-hero__headline,
+  .home-display {
+    font-size: 4.6rem;
+  }
+
+  .home-photo {
+    height: 32rem;
+  }
+
+  .home-gallery {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .home-gallery__link {
+    height: 18rem;
+  }
 }
 
 .booking-form {
@@ -1073,111 +1020,34 @@ ul {
   color: var(--muted);
 }
 
-/* Footer — Omnia multi-column */
+/* Footer */
 .site-footer {
   background: var(--footer-bg);
   border-top: 1px solid var(--line);
-  padding: 4rem 0 2.5rem;
+  padding: 1.4rem 0 1.9rem;
 }
 
-.site-footer__grid {
-  display: grid;
-  gap: 2.5rem;
-}
-
-.site-footer__brand {
-  margin: 0 0 1rem;
-  font-family: var(--font-logo);
-  font-size: 1.35rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.site-footer__blurb,
-.site-footer__note,
-.site-footer__address {
-  margin: 0;
-  color: var(--muted);
-  font-size: 0.92rem;
-  font-weight: 300;
-  line-height: 1.7;
-}
-
-.site-footer__address {
-  margin-top: 1.1rem;
-}
-
-.site-footer__heading {
-  margin: 0 0 1rem;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.site-footer__heading--spaced {
-  margin-top: 1.75rem;
-}
-
-.site-footer__connect {
-  display: block;
-}
-
-.site-footer__list {
-  display: grid;
-  gap: 0.55rem;
-}
-
-.site-footer__list a {
-  font-size: 0.88rem;
-  font-weight: 300;
-  text-decoration: none;
-  color: var(--ink-soft);
-}
-
-.site-footer__list a:hover {
-  color: var(--ink);
-}
-
-.site-footer__list--inline {
+.site-footer__inner {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.85rem 1.15rem;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
-.site-footer__hours {
-  display: grid;
-  gap: 0.55rem;
-  color: var(--ink-soft);
-  font-size: 0.88rem;
-  font-weight: 300;
+.site-footer__copy,
+.site-footer__links {
+  margin: 0;
 }
 
-.site-footer__hours span:first-child {
-  display: block;
-  color: var(--muted);
-  font-size: 0.8rem;
-}
-
-.site-footer__note {
-  margin-top: 3rem;
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--line);
-  font-size: 0.8rem;
+.site-footer__links a {
+  text-decoration: none;
 }
 
 @media (min-width: 640px) {
-  .tattoo-styles-melbourne__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .tattoo-portfolio-melbourne__grid,
   .work-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .tattoo-studio-melbourne__features {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1187,10 +1057,6 @@ ul {
 
   .field--full {
     grid-column: 1 / -1;
-  }
-
-  .site-footer__grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1216,50 +1082,30 @@ ul {
 
   .site-nav__link,
   .site-nav.is-open .site-nav__link {
-    font-size: 0.68rem;
-    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
     padding: 0;
     border: 0;
   }
 
-  .artist-feature,
   .about-grid,
-  .booking-layout,
-  .tattoo-booking-melbourne__grid {
+  .booking-layout {
     grid-template-columns: 0.9fr 1.1fr;
     align-items: center;
     gap: 3.5rem;
   }
-
-  .tattoo-studio-melbourne__feature-media {
-    min-height: 28rem;
-  }
 }
 
 @media (min-width: 1100px) {
-  .tattoo-styles-melbourne__grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .tattoo-portfolio-melbourne__grid,
   .work-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .tattoo-studio-melbourne__features {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .site-footer__grid,
-  .site-footer__grid--compact {
-    grid-template-columns: 1.5fr 0.9fr 1fr;
-    gap: 2rem;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tattoo-portfolio-card__media img,
+  .home-marquee__track,
   .nav-toggle__bars span {
+    animation: none;
     transition: none;
   }
 }

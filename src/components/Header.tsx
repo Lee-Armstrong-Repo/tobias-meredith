@@ -78,8 +78,17 @@ export function Header() {
     return () => window.cancelAnimationFrame(frame);
   }, [pathname]);
 
+  const isHome = pathname === "/";
+  const headerClass = [
+    "site-header",
+    isHome ? "site-header--overlay" : "",
+    open ? "is-menu-open" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
+
   return (
-    <header className={open ? "site-header is-menu-open" : "site-header"}>
+    <header className={headerClass}>
       <div className="site-header__inner">
         <p className="site-logo-wrap">
           <Link
@@ -88,8 +97,7 @@ export function Header() {
             aria-label={`${site.name} home`}
             onClick={() => setOpen(false)}
           >
-            <span aria-hidden="true">{site.name.split(" ")[0]}</span>
-            <span className="sr-only">{site.name}</span>
+            {site.shortName}
           </Link>
         </p>
 
