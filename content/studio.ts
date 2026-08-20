@@ -29,15 +29,15 @@ export const studioFeatures = [
 export const studioGallery = [
   {
     src: placeholders.studio,
-    alt: "Studio interior placeholder",
+    alt: "Custom tattoo session in Tobias Meredith’s Melbourne studio",
   },
   {
     src: placeholders.studioDetail01,
-    alt: "Studio detail placeholder",
+    alt: "Tobias Meredith in his Melbourne tattoo studio",
   },
   {
     src: placeholders.studioDetail02,
-    alt: "Studio workspace placeholder",
+    alt: "Finished black and grey sleeve work photographed in studio",
   },
 ] as const;
 

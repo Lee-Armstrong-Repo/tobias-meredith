@@ -56,10 +56,9 @@ export default function BookingPage() {
           <figure className="booking-layout__media">
             <Image
               src={placeholders.booking}
-              alt="Consultation booking placeholder"
+              alt="Tattoo session in progress — close-up of machine and ink"
               fill
               sizes="(max-width: 859px) 100vw, 42vw"
-              unoptimized
             />
           </figure>
 

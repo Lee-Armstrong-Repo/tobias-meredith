@@ -1,19 +1,21 @@
 export const placeholders = {
-  hero: "/images/hero-placeholder.svg",
-  about: "/images/about-placeholder.svg",
-  studio: "/images/studio-placeholder.svg",
-  studioDetail01: "/images/studio-detail-01.svg",
-  studioDetail02: "/images/studio-detail-02.svg",
-  booking: "/images/booking-placeholder.svg",
+  hero: "/images/tobias-meredith-black-grey-realism-sleeve-hero.jpg",
+  heroVideo: "/videos/tobias-meredith-tattoo-process-melbourne.mp4",
+  about: "/images/tobias-meredith-tattoo-artist-melbourne-studio.jpg",
+  studio: "/images/tobias-meredith-private-tattoo-studio-melbourne.jpg",
+  studioDetail01: "/images/tobias-meredith-tattoo-studio-interior-melbourne.jpg",
+  studioDetail02: "/images/tobias-meredith-nature-sleeve-tattoos-melbourne.jpg",
+  booking: "/images/tobias-meredith-tattoo-process-closeup-melbourne.jpg",
   process: {
-    consultation: "/images/process-consultation.svg",
-    design: "/images/process-design.svg",
-    session: "/images/process-session.svg",
+    consultation: "/images/tobias-meredith-tattoo-artist-melbourne-studio.jpg",
+    design: "/images/tobias-meredith-tattoo-ink-process-melbourne.jpg",
+    session: "/images/tobias-meredith-tattoo-process-closeup-melbourne.jpg",
   },
+  processVideo: "/videos/tobias-meredith-tattoo-ink-detail-melbourne.mp4",
   blog: [
-    "/blog/placeholder-01.svg",
-    "/blog/placeholder-02.svg",
-    "/blog/placeholder-03.svg",
+    "/images/tobias-meredith-tattoo-process-closeup-melbourne.jpg",
+    "/images/tobias-meredith-black-grey-realism-sleeve-hero.jpg",
+    "/images/tobias-meredith-nature-sleeve-tattoos-melbourne.jpg",
   ],
 } as const;
 

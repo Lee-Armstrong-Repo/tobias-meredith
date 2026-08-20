@@ -62,10 +62,9 @@ export default function AboutPage() {
           <figure className="about-grid__media">
             <Image
               src={placeholders.about}
-              alt={`Portrait of ${site.name}`}
+              alt={`${site.name}, tattoo artist in Melbourne`}
               fill
               sizes="(max-width: 859px) 100vw, 45vw"
-              unoptimized
             />
           </figure>
           <section className="about-copy" aria-labelledby="about-focus-heading">

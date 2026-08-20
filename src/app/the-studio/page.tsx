@@ -66,7 +66,6 @@ export default function StudioPage() {
             alt={`Studio space for ${site.name}`}
             fill
             sizes="(max-width: 859px) 100vw, 960px"
-            unoptimized
             priority
           />
         </figure>
@@ -80,7 +79,6 @@ export default function StudioPage() {
                   alt={image.alt}
                   fill
                   sizes="(max-width: 859px) 100vw, 33vw"
-                  unoptimized
                 />
               </figure>
             </li>

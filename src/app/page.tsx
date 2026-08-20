@@ -93,13 +93,23 @@ export default function HomePage() {
       <article className="home" aria-labelledby="home-heading">
         <header id="home" className="home-hero">
           <div className="home-hero__media" aria-hidden="true">
+            <video
+              className="home-hero__video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={placeholders.hero}
+            >
+              <source src={placeholders.heroVideo} type="video/mp4" />
+            </video>
             <Image
               src={placeholders.hero}
               alt=""
               fill
               priority
               sizes="100vw"
-              unoptimized
+              className="home-hero__poster"
             />
           </div>
           <div className="home-hero__overlay" aria-hidden="true" />
@@ -164,10 +174,9 @@ export default function HomePage() {
           <figure className="home-photo">
             <Image
               src={placeholders.about}
-              alt={`Portrait of ${site.name}`}
+              alt={`${site.name}, tattoo artist in Melbourne`}
               fill
               sizes="100vw"
-              unoptimized
             />
           </figure>
           <div className="home-section">
@@ -199,7 +208,6 @@ export default function HomePage() {
               alt={`Studio space for ${site.name}`}
               fill
               sizes="100vw"
-              unoptimized
             />
           </figure>
           <div className="home-section">
@@ -235,7 +243,6 @@ export default function HomePage() {
                     alt={item.alt}
                     fill
                     sizes="(max-width: 640px) 50vw, 25vw"
-                    unoptimized
                   />
                   <span className="sr-only">{item.title}</span>
                 </Link>
@@ -256,7 +263,6 @@ export default function HomePage() {
               alt=""
               fill
               sizes="100vw"
-              unoptimized
             />
           </div>
           <div className="home-booking__inner">
