@@ -1,51 +1,27 @@
-# Deploy: Bitbucket → GoDaddy (Node.js)
+# Deploy: Vercel + GoDaddy domain
 
-This app runs as a **Next.js Node.js process** on GoDaddy (cPanel **Setup Node.js App**), with source from **Bitbucket**. Booking (`/api/booking`) and Sanity Studio (`/studio`) need Node — this is not a static-only website.
+Host the Next.js app on **Vercel**. Keep **tobiastattoo.com.au** registered at GoDaddy and point DNS at Vercel.
 
-You do **not** need SSH/terminal. The start command builds the app with webpack automatically, then serves it.
+## Why Vercel
 
-## No-terminal workflow (recommended)
+- Native Next.js builds (no GoDaddy Node / Passenger issues)
+- Git push to `main` → automatic production deploy
+- Supports `/api/booking` (Resend) and `/studio` (Sanity)
 
-### First setup
+## 1. Connect the GitHub repo
 
-1. Push this repo to Bitbucket.
-2. cPanel → **Git Version Control** → clone into your app folder (must contain `package.json`).
-3. cPanel → **Setup Node.js App** → Create / edit:
+1. [vercel.com](https://vercel.com) → import `Lee-Armstrong-Repo/tobias-meredith` (or your fork).
+2. Framework: Next.js (auto-detected).
+3. Build command stays `npm run build` (`next build --webpack` in `package.json`).
+4. Deploy.
 
-| Setting | Value |
-|--------|--------|
-| Node.js version | **20.x or 22.x** |
-| Application mode | Production |
-| Application root | Folder with `package.json` |
-| Application URL | `tobiastattoo.com.au` |
-| Application startup file | `scripts/godaddy-start.js` |
+Team/scope used previously: `studio-untitled1`.
 
-4. Add environment variables (section below).
-5. Click **Run NPM Install**.
-6. Click **Start** / **Restart**.
+## 2. Environment variables
 
-The first start can take **several minutes** while it runs `next build --webpack`. Logs should show a webpack build, then:
-
-```text
-> Ready on http://…:PORT
-```
-
-### Every update (still no terminal)
-
-1. cPanel Git → **Pull** latest from Bitbucket.
-2. **Run NPM Install** (if dependencies changed).
-3. **Restart** the Node.js app (this rebuilds, then starts).
-
-## Why not “just a website”?
-
-Static `public_html` hosting cannot run `/api/booking` or `/studio`. Use **Setup Node.js App**.
-
-## Environment variables
-
-Set these in the Node.js App UI:
+Project → **Settings** → **Environment Variables** (Production + Preview):
 
 ```
-NODE_ENV=production
 NEXT_PUBLIC_SANITY_PROJECT_ID=cu77z1un
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2026-08-05
@@ -54,31 +30,42 @@ BOOKING_TO_EMAIL=tmeredith1988@gmail.com
 BOOKING_FROM_EMAIL=Tobias Meredith <onboarding@resend.dev>
 ```
 
-`NEXT_PUBLIC_*` values are baked in at **build** time (on each Restart). Change them, then Restart.
+Redeploy after adding or changing vars (`NEXT_PUBLIC_*` are baked in at build time).
 
-## Production domain and Sanity CORS
+## 3. Attach the GoDaddy domain
 
-1. Canonical URL in [`content/site.ts`](content/site.ts) is `https://tobiastattoo.com.au`.
-2. [Sanity → API → CORS origins](https://www.sanity.io/manage/project/cu77z1un/api) — **Allow credentials**:
-   - `https://tobiastattoo.com.au`
-   - `http://localhost:3000`
+1. Vercel → Project → **Settings** → **Domains** → add:
+   - `tobiastattoo.com.au`
+   - `www.tobiastattoo.com.au` (optional; redirect www → apex or the reverse)
+2. Vercel shows the DNS records to create.
+3. In **GoDaddy** → DNS for `tobiastattoo.com.au`, set those records (typically):
+   - Apex `@` → **A** record to Vercel’s IP (shown in the UI), or follow Vercel’s current instructions
+   - `www` → **CNAME** to `cname.vercel-dns.com` (or the value Vercel shows)
+4. Remove conflicting old A/CNAME/parking records that point at GoDaddy website hosting.
+5. Wait for DNS + SSL (often minutes; can take up to 24–48h).
 
-## Verify
+Domain stays billed/renewed at GoDaddy; the site runs on Vercel.
 
-- [ ] `https://tobiastattoo.com.au`
-- [ ] Booking form
-- [ ] `/studio` login
-- [ ] New Sanity blog post appears on `/blog`
+## 4. Sanity CORS
 
-## If the build fails in logs
+[Sanity manage → project `cu77z1un` → API → CORS](https://www.sanity.io/manage/project/cu77z1un/api) — **Allow credentials**:
 
-Paste the full error from the Node.js App log. Common causes: Node version too old, missing env vars, or the host running out of memory during `next build`.
+- `https://tobiastattoo.com.au`
+- `https://www.tobiastattoo.com.au` (if you use www)
+- `http://localhost:3000`
+- Optional while testing: `https://tobias-meredith.vercel.app`
 
-## Local smoke test
+## 5. Day-to-day
 
 ```bash
-npm run build
-npm run start:server
+git push origin main
 ```
 
-`npm start` always rebuilds (same as GoDaddy). Use `start:server` locally when `.next` already exists.
+Vercel rebuilds production. Canonical site URL in code: `https://tobiastattoo.com.au` ([`content/site.ts`](content/site.ts)).
+
+## 6. Verify
+
+- [ ] `https://tobiastattoo.com.au`
+- [ ] Booking form (`/booking`)
+- [ ] `/studio` login
+- [ ] New Sanity post on `/blog`
