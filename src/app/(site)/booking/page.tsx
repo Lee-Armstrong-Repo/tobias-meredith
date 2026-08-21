@@ -1,10 +1,10 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import { BookingForm } from "../../components/BookingForm";
-import { JsonLd } from "../../components/JsonLd";
-import { placeholders } from "../../../content/placeholders";
-import { site } from "../../../content/site";
-import { buildPageGraph } from "../../lib/schema";
+import { BookingForm } from "../../../components/BookingForm";
+import { JsonLd } from "../../../components/JsonLd";
+import { placeholders } from "../../../../content/placeholders";
+import { site } from "../../../../content/site";
+import { buildPageGraph } from "../../../lib/schema";
 
 const pageTitle = `Book a consultation with ${site.name}`;
 const pageDescription = `Request a tattoo consultation with ${site.name} at Victims of Ink, South Yarra. Custom black and grey — realism and Chicano.`;

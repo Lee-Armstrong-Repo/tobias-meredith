@@ -2,9 +2,9 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "@/components/JsonLd";
-import { blogPosts } from "../../../content/blog";
-import { blogPlaceholder } from "../../../content/placeholders";
-import { site } from "../../../content/site";
+import { blogPosts } from "../../../../content/blog";
+import { blogPlaceholder } from "../../../../content/placeholders";
+import { site } from "../../../../content/site";
 import { sanityClient } from "@/sanity/lib/client";
 import { blogPostsQuery } from "@/sanity/lib/queries";
 import {

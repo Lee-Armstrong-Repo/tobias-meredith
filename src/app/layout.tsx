@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Anton, IBM_Plex_Mono } from "next/font/google";
-import { Footer } from "../components/Footer";
-import { Header } from "../components/Header";
 import { site } from "../../content/site";
 import "./globals.css";
 
@@ -71,16 +69,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en-AU"
       className={`h-full ${plexMono.variable} ${anton.variable}`}
     >
-      <body className="site-shell">
-        <a className="skip-link" href="#main-content">
-          Skip to main content
-        </a>
-        <Header />
-        <main id="main-content" className="site-main">
-          {children}
-        </main>
-        <Footer />
-      </body>
+      <body className="site-shell">{children}</body>
     </html>
   );
 }

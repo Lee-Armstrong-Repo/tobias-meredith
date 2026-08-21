@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { JsonLd } from "../components/JsonLd";
+import { JsonLd } from "../../components/JsonLd";
 import {
   homeAbout,
   homeBooking,
@@ -10,16 +10,16 @@ import {
   homeProcess,
   homeStudio,
   homeWork,
-} from "../../content/home";
-import { placeholders } from "../../content/placeholders";
-import { site } from "../../content/site";
-import { workItems } from "../../content/work";
+} from "../../../content/home";
+import { placeholders } from "../../../content/placeholders";
+import { site } from "../../../content/site";
+import { workItems } from "../../../content/work";
 import {
   absoluteUrl,
   buildPageGraph,
   itemListNode,
   schemaIds,
-} from "../lib/schema";
+} from "../../lib/schema";
 
 const pageTitle = `${site.name} | Black & Grey Tattoo Artist South Yarra Melbourne`;
 const pageDescription = site.description;

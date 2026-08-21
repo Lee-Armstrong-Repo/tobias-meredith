@@ -9,14 +9,19 @@ import { blogPostSlugsQuery, workItemSlugsQuery } from "@/sanity/lib/queries";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = ["", "/about", "/the-studio", "/work", "/blog", "/booking"];
 
-  const blogSlugs =
-    hasSanityEnv && sanityClient
-      ? await sanityClient.fetch<string[]>(blogPostSlugsQuery)
-      : [];
-  const workSlugs =
-    hasSanityEnv && sanityClient
-      ? await sanityClient.fetch<string[]>(workItemSlugsQuery)
-      : [];
+  let blogSlugs: string[] = [];
+  let workSlugs: string[] = [];
+
+  if (hasSanityEnv && sanityClient) {
+    try {
+      [blogSlugs, workSlugs] = await Promise.all([
+        sanityClient.fetch<string[]>(blogPostSlugsQuery),
+        sanityClient.fetch<string[]>(workItemSlugsQuery),
+      ]);
+    } catch {
+      // Keep static fallbacks if Sanity is unreachable at build time.
+    }
+  }
 
   const blogRoutes = (
     blogSlugs.length > 0 ? blogSlugs : blogPosts.map((post) => post.slug)

@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { JsonLd } from "../../components/JsonLd";
-import { placeholders } from "../../../content/placeholders";
-import { site } from "../../../content/site";
+import { JsonLd } from "../../../components/JsonLd";
+import { placeholders } from "../../../../content/placeholders";
+import { site } from "../../../../content/site";
 import {
   studioFeatures,
   studioIntro,
   studioSession,
-} from "../../../content/studio";
-import { absoluteUrl, buildPageGraph, schemaIds } from "../../lib/schema";
+} from "../../../../content/studio";
+import { absoluteUrl, buildPageGraph, schemaIds } from "../../../lib/schema";
 
 const pageTitle = `Tattoo studio | Victims of Ink, South Yarra | ${site.name}`;
 const pageDescription = `${site.name} tattoos by appointment at Victims of Ink, 515 Chapel Street, South Yarra Melbourne. Custom black and grey — realism and Chicano.`;

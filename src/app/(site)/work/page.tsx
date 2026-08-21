@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { JsonLd } from "@/components/JsonLd";
-import { site } from "../../../content/site";
+import { site } from "../../../../content/site";
 import { getPortfolioItems } from "@/lib/work";
 import {
   absoluteUrl,

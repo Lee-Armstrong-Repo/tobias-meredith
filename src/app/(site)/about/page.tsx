@@ -1,10 +1,10 @@
 import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { JsonLd } from "../../components/JsonLd";
-import { site } from "../../../content/site";
-import { placeholders } from "../../../content/placeholders";
-import { absoluteUrl, buildPageGraph, schemaIds } from "../../lib/schema";
+import { JsonLd } from "../../../components/JsonLd";
+import { site } from "../../../../content/site";
+import { placeholders } from "../../../../content/placeholders";
+import { absoluteUrl, buildPageGraph, schemaIds } from "../../../lib/schema";
 
 const pageTitle = `About ${site.name} | Black & Grey Tattoo Artist Melbourne`;
 const pageDescription = `${site.name} is a tattoo artist at Victims of Ink in South Yarra, Melbourne — custom black and grey, realism, and Chicano work by appointment.`;

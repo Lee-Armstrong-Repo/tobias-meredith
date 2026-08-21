@@ -4,8 +4,8 @@ import { PortableText } from "@portabletext/react";
 import { notFound } from "next/navigation";
 import type { PortableTextBlock } from "sanity";
 import { JsonLd } from "@/components/JsonLd";
-import { blogPosts, getFallbackBlogBySlug } from "../../../../content/blog";
-import { blogPlaceholder } from "../../../../content/placeholders";
+import { blogPosts, getFallbackBlogBySlug } from "../../../../../content/blog";
+import { blogPlaceholder } from "../../../../../content/placeholders";
 import { hasSanityEnv } from "@/sanity/env";
 import { sanityClient } from "@/sanity/lib/client";
 import {
@@ -86,8 +86,14 @@ async function getPost(slug: string) {
 
 export async function generateStaticParams() {
   if (hasSanityEnv && sanityClient) {
-    const slugs = await sanityClient.fetch<string[]>(blogPostSlugsQuery);
-    return slugs.map((slug) => ({ slug }));
+    try {
+      const slugs = await sanityClient.fetch<string[]>(blogPostSlugsQuery);
+      if (slugs.length > 0) {
+        return slugs.map((slug) => ({ slug }));
+      }
+    } catch {
+      // Fall back to static posts if Sanity is unreachable at build time.
+    }
   }
 
   return blogPosts.map((post) => ({ slug: post.slug }));

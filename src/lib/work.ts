@@ -78,9 +78,13 @@ export async function getPortfolioItems(): Promise<PortfolioItem[]> {
 
 export async function getPortfolioSlugs(): Promise<string[]> {
   if (hasSanityEnv && sanityClient) {
-    const cmsSlugs = await sanityClient.fetch<string[]>(workItemSlugsQuery);
-    if (cmsSlugs.length > 0) {
-      return cmsSlugs;
+    try {
+      const cmsSlugs = await sanityClient.fetch<string[]>(workItemSlugsQuery);
+      if (cmsSlugs.length > 0) {
+        return cmsSlugs;
+      }
+    } catch {
+      // Fall back to static work items if Sanity is unreachable.
     }
   }
 
