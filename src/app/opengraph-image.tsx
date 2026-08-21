@@ -16,19 +16,20 @@ export default function OpenGraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          background: "#000",
-          color: "#fff",
+          background: "#080808",
+          color: "#f0ece4",
           fontFamily: "Helvetica, Arial, sans-serif",
-          letterSpacing: "0.12em",
           textAlign: "center",
           padding: "64px",
         }}
       >
         <div
           style={{
+            display: "flex",
             fontSize: 72,
             fontWeight: 600,
             textTransform: "uppercase",
+            letterSpacing: "0.08em",
             marginBottom: 24,
           }}
         >
@@ -36,14 +37,27 @@ export default function OpenGraphImage() {
         </div>
         <div
           style={{
+            display: "flex",
             fontSize: 28,
             fontWeight: 400,
             letterSpacing: "0.08em",
             opacity: 0.85,
-            maxWidth: 800,
           }}
         >
           {site.headline}
+        </div>
+        <div
+          style={{
+            display: "flex",
+            fontSize: 22,
+            fontWeight: 400,
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            opacity: 0.65,
+            marginTop: 18,
+          }}
+        >
+          South Yarra · Melbourne
         </div>
       </div>
     ),

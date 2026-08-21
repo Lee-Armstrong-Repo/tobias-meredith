@@ -6,51 +6,39 @@ export type TattooStyle = {
 
 export const tattooStyles: TattooStyle[] = [
   {
-    slug: "fine-line",
-    name: "Fine line",
+    slug: "black-and-grey",
+    name: "Black & grey",
     description:
-      "Delicate, precise linework for elegant minimalist tattoos with lasting clarity and subtle detail.",
+      "High-contrast monochrome work with smooth gradients, deep blacks, and lasting readability.",
   },
   {
-    slug: "blackwork",
-    name: "Blackwork",
+    slug: "realism",
+    name: "Realism",
     description:
-      "Bold monochrome compositions with strong contrast, solid forms, and considered negative space.",
+      "Detailed portrait and subject work built for depth, texture, and clean long-term aging.",
   },
   {
-    slug: "illustrative",
-    name: "Illustrative",
+    slug: "chicano",
+    name: "Chicano",
     description:
-      "Drawn, story-led imagery with character, texture, and custom composition built around your idea.",
+      "Classic Chicano-influenced imagery with strong contrast, lettering, and urban portraiture.",
   },
   {
-    slug: "ornamental",
-    name: "Ornamental",
+    slug: "portrait",
+    name: "Portrait",
     description:
-      "Pattern, symmetry, and decorative flow designed to sit naturally with the body’s contours.",
+      "Custom portrait tattoos focused on likeness, shading, and composition on the body.",
   },
   {
-    slug: "geometric",
-    name: "Geometric",
+    slug: "large-scale",
+    name: "Sleeves & large scale",
     description:
-      "Clean structure, precise shapes, and balanced geometry for contemporary custom tattoo design.",
-  },
-  {
-    slug: "botanical",
-    name: "Botanical",
-    description:
-      "Floral and plant studies with refined line, organic movement, and thoughtful placement.",
-  },
-  {
-    slug: "script",
-    name: "Script & lettering",
-    description:
-      "Custom letterforms and script tattoos focused on readability, spacing, and elegant type.",
+      "Full sleeves, legs, and larger compositions planned as cohesive, lasting pieces.",
   },
   {
     slug: "custom",
     name: "Custom design",
     description:
-      "Fully custom tattoo concepts developed from consultation through sketch, stencil, and final ink.",
+      "Fully custom concepts developed from consultation through sketch, stencil, and final ink.",
   },
 ];

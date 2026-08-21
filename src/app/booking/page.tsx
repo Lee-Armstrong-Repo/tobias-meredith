@@ -7,7 +7,7 @@ import { site } from "../../../content/site";
 import { buildPageGraph } from "../../lib/schema";
 
 const pageTitle = `Book a consultation with ${site.name}`;
-const pageDescription = `Request a tattoo consultation with ${site.name}. Share your idea, placement, and preferred style.`;
+const pageDescription = `Request a tattoo consultation with ${site.name} at Victims of Ink, South Yarra. Custom black and grey — realism and Chicano.`;
 
 export const metadata: Metadata = {
   title: "Book a consultation",
@@ -18,11 +18,18 @@ export const metadata: Metadata = {
     description: pageDescription,
     url: "/booking",
     type: "website",
+    images: [
+      {
+        url: placeholders.booking,
+        alt: "Tattoo consultation and session with Tobias Meredith",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: pageTitle,
     description: pageDescription,
+    images: [placeholders.booking],
   },
 };
 
@@ -50,6 +57,10 @@ export default function BookingPage() {
         <header className="page-intro">
           <h1 id="booking-heading">Contact &amp; booking</h1>
           <p>{site.bookingNote}</p>
+          <p>
+            Sessions are at {site.studio.name}, {site.studio.streetAddress},{" "}
+            {site.studio.addressLocality}.
+          </p>
         </header>
 
         <div className="booking-layout">

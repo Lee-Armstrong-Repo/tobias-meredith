@@ -10,8 +10,8 @@ import {
   itemListNode,
 } from "@/lib/schema";
 
-const pageTitle = `Work by ${site.name}`;
-const pageDescription = `Selected custom tattoo work by ${site.name}, including fine line, blackwork, illustrative, and ornamental pieces.`;
+const pageTitle = `Work by ${site.name} | Black & Grey Tattoos Melbourne`;
+const pageDescription = `Selected custom black and grey tattoo work by ${site.name} in South Yarra — realism, Chicano, portraits, and large-scale pieces.`;
 
 export const metadata: Metadata = {
   title: "Work",

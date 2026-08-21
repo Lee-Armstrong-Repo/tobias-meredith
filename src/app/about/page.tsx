@@ -4,10 +4,10 @@ import Link from "next/link";
 import { JsonLd } from "../../components/JsonLd";
 import { site } from "../../../content/site";
 import { placeholders } from "../../../content/placeholders";
-import { buildPageGraph, schemaIds } from "../../lib/schema";
+import { absoluteUrl, buildPageGraph, schemaIds } from "../../lib/schema";
 
-const pageTitle = `About ${site.name}`;
-const pageDescription = `${site.name} is a tattoo artist in Melbourne creating custom fine line, blackwork, and illustrative work.`;
+const pageTitle = `About ${site.name} | Black & Grey Tattoo Artist Melbourne`;
+const pageDescription = `${site.name} is a tattoo artist at Victims of Ink in South Yarra, Melbourne — custom black and grey, realism, and Chicano work by appointment.`;
 
 export const metadata: Metadata = {
   title: "About",
@@ -18,11 +18,13 @@ export const metadata: Metadata = {
     description: pageDescription,
     url: "/about",
     type: "profile",
+    images: [{ url: placeholders.about, alt: `${site.name} in Melbourne` }],
   },
   twitter: {
     card: "summary_large_image",
     title: pageTitle,
     description: pageDescription,
+    images: [placeholders.about],
   },
 };
 
@@ -37,6 +39,7 @@ export default function AboutPage() {
             description: pageDescription,
             type: "AboutPage",
             mainEntityId: schemaIds.person,
+            primaryImage: absoluteUrl(placeholders.about),
           },
           [
             { name: "Home", path: "/" },
@@ -49,12 +52,12 @@ export default function AboutPage() {
         <header className="page-intro">
           <h1 id="about-heading">About {site.name}</h1>
           <p className="about-role">
-            Fine line, blackwork &amp; illustrative tattooing
+            Black &amp; grey · Realism · Chicano
           </p>
           <p>
-            {site.name} is a tattoo artist based in Melbourne, creating custom
-            fine line, blackwork, and illustrative work through a careful,
-            consultation-led process.
+            {site.name} is a tattoo artist based at {site.studio.name} in{" "}
+            {site.location}, creating custom black and grey work through a
+            careful, consultation-led process.
           </p>
         </header>
 
@@ -62,7 +65,7 @@ export default function AboutPage() {
           <figure className="about-grid__media">
             <Image
               src={placeholders.about}
-              alt={`${site.name}, tattoo artist in Melbourne`}
+              alt={`${site.name}, tattoo artist at ${site.studio.name} in ${site.location}`}
               fill
               sizes="(max-width: 859px) 100vw, 45vw"
             />
@@ -70,12 +73,14 @@ export default function AboutPage() {
           <section className="about-copy" aria-labelledby="about-focus-heading">
             <h2 id="about-focus-heading">Focused on lasting custom work</h2>
             <p>
-              {site.name} focuses on custom work with clear composition, refined
-              line, and designs built to age well on the body.
+              {site.name} focuses on custom black and grey tattoos with clear
+              composition, refined shading, and designs built to age well on the
+              body.
             </p>
             <p>
               Each piece starts with your idea, then moves through careful
-              sketching, placement planning, and a calm professional session.
+              sketching, placement planning, and a calm professional session at{" "}
+              {site.studio.name}.
             </p>
             <p>
               Tobias builds every tattoo around the client&apos;s concept —
@@ -83,7 +88,8 @@ export default function AboutPage() {
               down.
             </p>
             <p>
-              Based in {site.location}. For availability, use the{" "}
+              Based at {site.studio.streetAddress}, {site.studio.addressLocality}.
+              For availability, use the{" "}
               <Link href="/booking">consultation form</Link> or email{" "}
               <a href={`mailto:${site.email}`}>{site.email}</a>.
             </p>

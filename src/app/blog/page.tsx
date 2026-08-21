@@ -14,7 +14,7 @@ import {
 } from "@/lib/schema";
 
 const pageTitle = `Blog | ${site.name}`;
-const pageDescription = `Notes on tattoo preparation, placement, and style from ${site.name}.`;
+const pageDescription = `Tattoo preparation, placement, and black and grey style notes from ${site.name} in South Yarra, Melbourne.`;
 
 export const metadata: Metadata = {
   title: "Blog",

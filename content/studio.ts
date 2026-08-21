@@ -1,43 +1,26 @@
-import { placeholders } from "./placeholders";
-
 export const studioIntro =
-  "A considered space where artistry meets comfort — designed for focus, hygiene, and creative expression.";
+  "Tobias works out of Victims of Ink on Chapel Street in South Yarra — a professional Melbourne shop for custom black and grey sessions by appointment.";
 
 export const studioFeatures = [
   {
-    title: "Professional standards",
+    title: "Victims of Ink",
     description:
-      "Medical-grade hygiene, sterile setup, and careful aftercare guidance for every session.",
+      "An established Chapel Street studio with a professional setup, sterile standards, and a proper working environment for larger custom pieces.",
   },
   {
-    title: "Private, focused sessions",
+    title: "South Yarra location",
     description:
-      "A calm environment designed for concentration, comfort, and clear communication.",
+      "Easy to reach on Chapel Street — convenient for Melbourne clients and visitors booking custom tattoo appointments.",
   },
   {
-    title: "Custom-first process",
+    title: "Appointment only",
     description:
-      "Consultation, design development, and placement planning before your appointment.",
+      "Tobias takes a limited number of bookings. Every session is scheduled around the work, not walk-ins.",
   },
   {
-    title: "Based in Melbourne",
+    title: "Custom black & grey",
     description:
-      "A convenient Melbourne location for clients booking custom tattoo sessions.",
-  },
-] as const;
-
-export const studioGallery = [
-  {
-    src: placeholders.studio,
-    alt: "Custom tattoo session in Tobias Meredith’s Melbourne studio",
-  },
-  {
-    src: placeholders.studioDetail01,
-    alt: "Tobias Meredith in his Melbourne tattoo studio",
-  },
-  {
-    src: placeholders.studioDetail02,
-    alt: "Finished black and grey sleeve work photographed in studio",
+      "Realism, Chicano, and timeless black and grey work designed in consultation before any ink goes down.",
   },
 ] as const;
 
@@ -46,6 +29,6 @@ export const studioSession = {
   paragraphs: [
     "Every appointment begins with a brief check-in on your design, placement, and any questions before the session starts.",
     "Sessions are paced for clarity and comfort — with time built in for breaks, adjustments, and aftercare instructions before you leave.",
-    "If you are travelling to Melbourne or planning a larger piece, mention timing and placement in your consultation request so sessions can be scheduled accordingly.",
+    "If you are travelling to Melbourne or planning a larger piece, mention timing and placement in your consultation request so sessions can be scheduled at Victims of Ink.",
   ],
 } as const;

@@ -34,7 +34,7 @@ export const homeProcess = {
     {
       number: "04",
       title: "Tattoo",
-      body: "A focused session in a private studio. Time is protected so the work can be done properly.",
+      body: "A focused session at Victims of Ink in South Yarra. Time is protected so the work can be done properly.",
     },
   ],
 } as const;
@@ -50,8 +50,8 @@ export const homeAbout = {
 
 export const homeStudio = {
   index: "03 / The studio",
-  heading: "Private studio.\nProfessional space.",
-  copy: "Melbourne, Australia.\nBy appointment only.",
+  heading: "Victims of Ink.\nChapel Street.",
+  copy: "515 Chapel Street, South Yarra.\nBy appointment only.",
 } as const;
 
 export const homeWork = {

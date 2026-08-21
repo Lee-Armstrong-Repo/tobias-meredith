@@ -1,4 +1,3 @@
-import Image from "next/image";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { JsonLd } from "../../components/JsonLd";
@@ -6,14 +5,13 @@ import { placeholders } from "../../../content/placeholders";
 import { site } from "../../../content/site";
 import {
   studioFeatures,
-  studioGallery,
   studioIntro,
   studioSession,
 } from "../../../content/studio";
-import { buildPageGraph, schemaIds } from "../../lib/schema";
+import { absoluteUrl, buildPageGraph, schemaIds } from "../../lib/schema";
 
-const pageTitle = `The studio | ${site.name}`;
-const pageDescription = `Visit the ${site.name} tattoo studio in Melbourne — a private, hygienic space for custom fine line, blackwork, and illustrative sessions.`;
+const pageTitle = `Tattoo studio | Victims of Ink, South Yarra | ${site.name}`;
+const pageDescription = `${site.name} tattoos by appointment at Victims of Ink, 515 Chapel Street, South Yarra Melbourne. Custom black and grey — realism and Chicano.`;
 
 export const metadata: Metadata = {
   title: "The studio",
@@ -24,15 +22,24 @@ export const metadata: Metadata = {
     description: pageDescription,
     url: "/the-studio",
     type: "website",
+    images: [
+      {
+        url: placeholders.booking,
+        alt: "Tattoo session in progress with Tobias Meredith",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: pageTitle,
     description: pageDescription,
+    images: [placeholders.booking],
   },
 };
 
 export default function StudioPage() {
+  const { studio } = site;
+
   return (
     <>
       <JsonLd
@@ -42,7 +49,7 @@ export default function StudioPage() {
             name: pageTitle,
             description: pageDescription,
             mainEntityId: schemaIds.service,
-            primaryImage: placeholders.studio,
+            primaryImage: absoluteUrl(placeholders.booking),
           },
           [
             { name: "Home", path: "/" },
@@ -56,37 +63,69 @@ export default function StudioPage() {
       <article className="page" aria-labelledby="studio-page-heading">
         <header className="page-intro">
           <h1 id="studio-page-heading">The studio</h1>
-          <p className="about-role">Private custom tattoo sessions in Melbourne</p>
+          <p className="about-role">
+            Working from {studio.name}, {studio.addressLocality}
+          </p>
           <p>{studioIntro}</p>
         </header>
 
-        <figure className="studio-page__media">
-          <Image
-            src={placeholders.studio}
-            alt={`Studio space for ${site.name}`}
-            fill
-            sizes="(max-width: 859px) 100vw, 960px"
-            priority
-          />
+        <figure className="studio-page__media studio-page__media--video">
+          <video
+            className="studio-page__video"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster={placeholders.booking}
+            aria-label="Close-up of a tattoo session in progress"
+          >
+            <source src={placeholders.processVideo} type="video/mp4" />
+          </video>
         </figure>
 
-        <ul className="studio-page__gallery" aria-label="Studio gallery">
-          {studioGallery.map((image) => (
-            <li key={image.src}>
-              <figure className="studio-page__gallery-item">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="(max-width: 859px) 100vw, 33vw"
-                />
-              </figure>
-            </li>
-          ))}
-        </ul>
+        <section className="studio-page__location" aria-labelledby="studio-location-heading">
+          <h2 id="studio-location-heading">{studio.name}</h2>
+          <p className="studio-page__location-lede">
+            Tobias books custom sessions through Victims of Ink on Chapel
+            Street — a professional South Yarra studio for focused black and
+            grey work.
+          </p>
+
+          <address className="studio-page__address">
+            <p>
+              <strong>{studio.name}</strong>
+              <br />
+              {studio.streetAddress}
+              <br />
+              {studio.addressLocality} {studio.addressRegion} {studio.postalCode}
+              <br />
+              Australia
+            </p>
+            <p className="studio-page__address-links">
+              <a
+                href={studio.mapsUrl}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Get directions
+              </a>
+              <span aria-hidden="true"> / </span>
+              <a
+                href={studio.website}
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                {studio.name} website
+              </a>
+            </p>
+            <p>
+              <a href={`mailto:${site.email}`}>{site.email}</a>
+            </p>
+          </address>
+        </section>
 
         <section aria-labelledby="studio-features-heading">
-          <h2 id="studio-features-heading">Studio standards</h2>
+          <h2 id="studio-features-heading">What to expect</h2>
           <ul className="studio-page__features">
             {studioFeatures.map((feature) => (
               <li key={feature.title}>
@@ -105,7 +144,7 @@ export default function StudioPage() {
             <p key={paragraph}>{paragraph}</p>
           ))}
           <p>
-            Based in {site.location}. Sessions are by appointment — use the{" "}
+            Sessions are by appointment — use the{" "}
             <Link href="/booking">consultation form</Link> or email{" "}
             <a href={`mailto:${site.email}`}>{site.email}</a> to enquire.
           </p>

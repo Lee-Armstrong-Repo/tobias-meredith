@@ -21,7 +21,7 @@ import {
   schemaIds,
 } from "../lib/schema";
 
-const pageTitle = `${site.name} | Custom Tattoo Artist in Melbourne`;
+const pageTitle = `${site.name} | Black & Grey Tattoo Artist South Yarra Melbourne`;
 const pageDescription = site.description;
 const featuredWork = workItems.slice(0, 4);
 const marqueeText = `${homeMarqueeItems.join(" — ")} — `;
@@ -202,13 +202,18 @@ export default function HomePage() {
           className="home-band home-band--cream"
           aria-labelledby="studio-heading"
         >
-          <figure className="home-photo home-photo--studio">
-            <Image
-              src={placeholders.studio}
-              alt={`Studio space for ${site.name}`}
-              fill
-              sizes="100vw"
-            />
+          <figure className="home-photo home-photo--studio home-photo--video">
+            <video
+              className="home-photo__video"
+              autoPlay
+              muted
+              loop
+              playsInline
+              poster={placeholders.booking}
+              aria-hidden="true"
+            >
+              <source src={placeholders.processVideo} type="video/mp4" />
+            </video>
           </figure>
           <div className="home-section">
             <p className="home-kicker">{homeStudio.index}</p>
@@ -218,7 +223,7 @@ export default function HomePage() {
             <p className="home-copy">{lines(homeStudio.copy)}</p>
             <p className="home-section__cta">
               <Link href="/the-studio" className="text-link">
-                View the studio →
+                Studio details →
               </Link>
             </p>
           </div>

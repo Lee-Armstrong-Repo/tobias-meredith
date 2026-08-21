@@ -88,13 +88,11 @@ export function BookingForm() {
             <option value="" disabled>
               Select a style
             </option>
-            <option>Fine line</option>
-            <option>Blackwork</option>
-            <option>Illustrative</option>
-            <option>Ornamental</option>
-            <option>Geometric</option>
-            <option>Botanical</option>
-            <option>Script & lettering</option>
+            <option>Black & grey</option>
+            <option>Realism</option>
+            <option>Chicano</option>
+            <option>Portrait</option>
+            <option>Sleeve / large scale</option>
             <option>Not sure yet</option>
           </select>
         </label>

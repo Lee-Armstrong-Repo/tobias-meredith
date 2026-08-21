@@ -4,16 +4,17 @@ export const site = {
   tagline: "Tattoo Artist",
   headline: "Without the bullshit.",
   description:
-    "Tobias Meredith is a tattoo artist in Melbourne creating custom black and grey tattoos — realism, Chicano, and timeless work. By appointment only.",
+    "Tobias Meredith is a tattoo artist in South Yarra, Melbourne, creating custom black and grey tattoos — realism, Chicano, and timeless work. Based at Victims of Ink, by appointment only.",
   url: "https://tobiasmeredith.com",
   locale: "en_AU",
   city: "Melbourne",
+  suburb: "South Yarra",
   region: "Victoria",
   country: "Australia",
-  location: "Melbourne, Australia",
-  email: "hello@tobiasmeredith.com",
+  location: "South Yarra, Melbourne",
+  email: "tmeredith1988@gmail.com",
   phone: "",
-  instagram: "https://instagram.com/tobiasmeredith",
+  instagram: "https://www.instagram.com/tobiastattoo",
   ogImage: "/opengraph-image",
   bookingNote:
     "Share a few details about your idea and Tobias will reply to discuss design, sizing, placement, and availability.",
@@ -21,6 +22,17 @@ export const site = {
     { days: "Monday – Saturday", hours: "By appointment" },
     { days: "Sunday", hours: "By appointment" },
   ],
+  studio: {
+    name: "Victims of Ink",
+    streetAddress: "515 Chapel Street",
+    addressLocality: "South Yarra",
+    addressRegion: "VIC",
+    postalCode: "3141",
+    addressCountry: "AU",
+    mapsUrl:
+      "https://www.google.com/maps/search/?api=1&query=515+Chapel+Street+South+Yarra+VIC+3141",
+    website: "https://victimsofink.com.au",
+  },
 } as const;
 
 export const nav = [

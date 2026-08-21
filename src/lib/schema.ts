@@ -41,11 +41,26 @@ export function personNode(): JsonLdNode {
     email: site.email,
     image: absoluteUrl(placeholders.about),
     sameAs: [site.instagram],
+    worksFor: {
+      "@type": "LocalBusiness",
+      name: site.studio.name,
+      url: site.studio.website,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: site.studio.streetAddress,
+        addressLocality: site.studio.addressLocality,
+        addressRegion: site.studio.addressRegion,
+        postalCode: site.studio.postalCode,
+        addressCountry: site.studio.addressCountry,
+      },
+    },
     address: {
       "@type": "PostalAddress",
-      addressLocality: site.city,
-      addressRegion: site.region,
-      addressCountry: "AU",
+      streetAddress: site.studio.streetAddress,
+      addressLocality: site.studio.addressLocality,
+      addressRegion: site.studio.addressRegion,
+      postalCode: site.studio.postalCode,
+      addressCountry: site.studio.addressCountry,
     },
     knowsAbout: tattooStyles.map((style) => style.name),
   };
@@ -55,15 +70,29 @@ export function professionalServiceNode(): JsonLdNode {
   return {
     "@type": "ProfessionalService",
     "@id": schemaIds.service,
-    name: site.name,
+    name: `${site.name} at ${site.studio.name}`,
     description: site.description,
-    url: site.url,
+    url: absoluteUrl("/the-studio"),
     email: site.email,
-    image: absoluteUrl(placeholders.studio),
-    areaServed: {
-      "@type": "City",
-      name: site.city,
+    image: absoluteUrl(placeholders.about),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: site.studio.streetAddress,
+      addressLocality: site.studio.addressLocality,
+      addressRegion: site.studio.addressRegion,
+      postalCode: site.studio.postalCode,
+      addressCountry: site.studio.addressCountry,
     },
+    areaServed: [
+      {
+        "@type": "City",
+        name: site.city,
+      },
+      {
+        "@type": "Place",
+        name: site.studio.addressLocality,
+      },
+    ],
     provider: { "@id": schemaIds.person },
     founder: { "@id": schemaIds.person },
     contactPoint: {
@@ -71,9 +100,9 @@ export function professionalServiceNode(): JsonLdNode {
       contactType: "customer support",
       email: site.email,
       availableLanguage: ["English"],
-      areaServed: site.city,
+      areaServed: ["Melbourne", "South Yarra"],
     },
-    sameAs: [site.instagram],
+    sameAs: [site.instagram, site.studio.website],
   };
 }
 
