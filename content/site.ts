@@ -5,7 +5,7 @@ export const site = {
   headline: "Without the bullshit.",
   description:
     "Tobias Meredith is a tattoo artist in South Yarra, Melbourne, creating custom black and grey tattoos — realism, Chicano, and timeless work. Based at Victims of Ink, by appointment only.",
-  url: "https://tobiasmeredith.com",
+  url: "https://tobiastattoo.com.au",
   locale: "en_AU",
   city: "Melbourne",
   suburb: "South Yarra",
