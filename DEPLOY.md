@@ -1,54 +1,48 @@
 # Deploy: Bitbucket → GoDaddy (Node.js)
 
-This app runs as a **Next.js Node.js process** on GoDaddy (cPanel **Setup Node.js App** / Passenger), with source from **Bitbucket**. It is not a static-only site: booking (`/api/booking`) and Sanity Studio (`/studio`) need Node.
+This app runs as a **Next.js Node.js process** on GoDaddy (cPanel **Setup Node.js App**), with source from **Bitbucket**. Booking (`/api/booking`) and Sanity Studio (`/studio`) need Node — this is not a static-only website.
 
-Builds must use **webpack** (`npm run build` → `next build --webpack`). Next.js 16 defaults to Turbopack, which fails in restricted sandboxes with port-binding / permission errors.
+You do **not** need SSH/terminal. The start command builds the app with webpack automatically, then serves it.
 
-## 1. Bitbucket
+## No-terminal workflow (recommended)
 
-1. Push this repository to Bitbucket.
-2. In GoDaddy cPanel → **Git Version Control**, clone the Bitbucket repo into the Node application root (the folder that will contain `package.json`).
+### First setup
 
-## 2. GoDaddy Node.js App
-
-In cPanel → **Setup Node.js App** → Create Application:
+1. Push this repo to Bitbucket.
+2. cPanel → **Git Version Control** → clone into your app folder (must contain `package.json`).
+3. cPanel → **Setup Node.js App** → Create / edit:
 
 | Setting | Value |
 |--------|--------|
-| Node.js version | **20.x or 22.x** (required for Next.js 16) |
+| Node.js version | **20.x or 22.x** |
 | Application mode | Production |
-| Application root | Directory with `package.json` (not necessarily `public_html`) |
-| Application URL | Your live domain |
-| Application startup file | `server.js` |
+| Application root | Folder with `package.json` |
+| Application URL | `tobiastattoo.com.au` |
+| Application startup file | `scripts/godaddy-start.js` |
 
-Then:
+4. Add environment variables (section below).
+5. Click **Run NPM Install**.
+6. Click **Start** / **Restart**.
 
-1. Add environment variables (below).
-2. **Stop** the app if it is running.
-3. **Run NPM Install**.
-4. In the app shell / SSH (with the Node virtualenv activated):
+The first start can take **several minutes** while it runs `next build --webpack`. Logs should show a webpack build, then:
 
-```bash
-npm ci
-npm run build
+```text
+> Ready on http://…:PORT
 ```
 
-5. **Start / Restart** the app.
+### Every update (still no terminal)
 
-### Release loop
+1. cPanel Git → **Pull** latest from Bitbucket.
+2. **Run NPM Install** (if dependencies changed).
+3. **Restart** the Node.js app (this rebuilds, then starts).
 
-```bash
-git pull
-npm ci
-npm run build
-# Restart the Node.js app in cPanel
-```
+## Why not “just a website”?
 
-If on-server builds run out of memory, build elsewhere and sync `.next` plus app files, or add a Bitbucket Pipeline that builds with webpack and deploys over SSH.
+Static `public_html` hosting cannot run `/api/booking` or `/studio`. Use **Setup Node.js App**.
 
-## 3. Environment variables
+## Environment variables
 
-Set these in the Node.js App environment UI (and keep a local `.env.local` for development):
+Set these in the Node.js App UI:
 
 ```
 NODE_ENV=production
@@ -60,31 +54,31 @@ BOOKING_TO_EMAIL=tmeredith1988@gmail.com
 BOOKING_FROM_EMAIL=Tobias Meredith <onboarding@resend.dev>
 ```
 
-`NEXT_PUBLIC_*` values are embedded at **build** time. If you change them, rebuild and restart.
+`NEXT_PUBLIC_*` values are baked in at **build** time (on each Restart). Change them, then Restart.
 
-Until a Resend domain is verified, use the onboarding sender and ensure the Resend account can deliver to `BOOKING_TO_EMAIL`.
+## Production domain and Sanity CORS
 
-## 4. Production domain and Sanity CORS
-
-1. Canonical URL is set in [`content/site.ts`](content/site.ts) as `https://tobiastattoo.com.au` (used for sitemap, robots, Open Graph, JSON-LD). Rebuild after any change.
-2. In [Sanity manage → API → CORS origins](https://www.sanity.io/manage/project/cu77z1un/api), add with **Allow credentials**:
+1. Canonical URL in [`content/site.ts`](content/site.ts) is `https://tobiastattoo.com.au`.
+2. [Sanity → API → CORS origins](https://www.sanity.io/manage/project/cu77z1un/api) — **Allow credentials**:
    - `https://tobiastattoo.com.au`
-   - `http://localhost:3000` for local Studio
+   - `http://localhost:3000`
 
-Without CORS, `/studio` login will fail in the browser.
+## Verify
 
-## 5. Verify after go-live
+- [ ] `https://tobiastattoo.com.au`
+- [ ] Booking form
+- [ ] `/studio` login
+- [ ] New Sanity blog post appears on `/blog`
 
-- [ ] Homepage `/`
-- [ ] Booking form sends mail (`/booking` → `/api/booking`)
-- [ ] `/studio` loads and accepts Sanity login
-- [ ] Publish a blog post in Studio → appears on `/blog` within ~1 minute
+## If the build fails in logs
 
-## Local production smoke test
+Paste the full error from the Node.js App log. Common causes: Node version too old, missing env vars, or the host running out of memory during `next build`.
+
+## Local smoke test
 
 ```bash
 npm run build
-npm start
+npm run start:server
 ```
 
-App listens on `PORT` (default `3000`) via `server.js`.
+`npm start` always rebuilds (same as GoDaddy). Use `start:server` locally when `.next` already exists.
